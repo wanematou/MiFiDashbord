@@ -1,0 +1,14 @@
+// Import des outils Bootstrap
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+$custom-colors: (
+  "myBlue": #012970,
+  "myOrange": #FB8C00
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import "bootstrap/scss/bootstrap";
+
