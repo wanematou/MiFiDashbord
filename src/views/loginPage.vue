@@ -62,7 +62,7 @@ export default {
                         let user= r.data.data;
                         const userStore = useUserStore();
                         userStore.setUser(user);
-                        this.$router.push({ path: "/client/profils" });
+                        this.$router.push({ path: "/client/home" });
                     }
                 })
                 .catch((error) => {

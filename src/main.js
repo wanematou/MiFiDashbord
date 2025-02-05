@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import '../src/assets/custom-bootstrap.scss'
 import Swal from 'sweetalert2'
+import { Tickets, PiggyBank,Banknote,ChevronUp,ChevronDown,Users,Mail} from 'lucide-vue-next';
 const pinia =createPinia();
 pinia.use(piniaPluginPersistedstate);
 
@@ -18,5 +19,11 @@ const app = createApp(App)
 app.use(pinia)
 app.use(router)
 app.config.globalProperties.$swal = Swal;
-
+app.component('Tickets',Tickets)
+app.component('PiggyBank',PiggyBank)
+app.component('Banknote',Banknote)
+app.component('ChevronUp', ChevronUp);
+app.component('ChevronDown', ChevronDown);
+app.component('Users', Users);
+app.component('Mail', Mail);
 app.mount('#app')

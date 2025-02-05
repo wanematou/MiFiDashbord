@@ -2,7 +2,7 @@
     <div class=" main">
         <div class=" container mb-5 ">
             <div class="row">
-                <h3 class="text-myBlue" >Suivez en ligne vos Tickets sur MiFi</h3>
+                <h3 class="text-myBlue">Suivez en ligne vos Tickets sur MiFi</h3>
             </div>
             <div class="row">
                 <nav aria-label="breadcrumb">
@@ -51,14 +51,14 @@
 </template>
 <script>
 import Globals from "../store/Globals.js";
-import {useUserStore, useProfilStore } from "../store/user.js";
+import { useUserStore, useProfilStore } from "../store/user.js";
 import axios from "axios";
 export default {
     data() {
         return {
             phone: '',
             password: '',
-            tarifName:''
+            tarifName: ''
         }
     },
     mounted() {
@@ -66,14 +66,16 @@ export default {
     },
     methods: {
         async getTicket() {
-            let useProfil= useProfilStore();
-            this.tarifName=useProfil.profil.name;
+            let useProfil = useProfilStore();
+            if (useProfil.profil) {
+                this.tarifName = useProfil.profil.name;
+            }
             try {
                 const res = await axios(
                     {
                         method: "POST",
                         url: "https://templates.mifi.bf/api/index.php?req=get-Tickets",
-                       
+
                     }
                 );
                 console.log(res)
@@ -81,7 +83,7 @@ export default {
                 // Gestion des erreurs
                 console.error("Erreur :", error);
             }
-            
+
         }
     }
 }

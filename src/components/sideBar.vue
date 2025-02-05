@@ -5,41 +5,35 @@
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <a href="/"
                         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-myBlue text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline text-myOrange ">MiFi</span>
+                       <router-link to="/client/home" class="text-decoration-none"><span class="fs-5 d-none d-sm-inline text-myOrange ">MiFi</span></router-link>
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <router-link to="/client/profils"> <span class="ms-1 d-none text-myBlue d-sm-inline">Mes
+                            <a href="#" class="nav-link align-middle px-0  ">
+                                <router-link to="/client/profils" class="text-decoration-none " > <span class="ms-1 d-none text-decoration-none text-myBlue d-sm-inline">Mes
                                         tarifs</span></router-link>
                             </a>
                         </li>
-                        <li>
-                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-speedometer2"></i> <span
-                                    class="ms-1 d-none d-sm-inline text-myBlue">Mes tickets</span> </a>
-                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                <li class="w-100" v-for="(profil, id) in profils" :key="id" >
-                                    <a href="#" @click.prevent="displayList(profil)" class="nav-link px-0"> <span
-                                            class="d-none d-sm-inline text-myBlue">{{ profil.name }}</span>
-                                    </a>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <button @click.prevent="displayList()" class="nav-link align-middle px-0">
+                                 <span class=" text-decoration-none ms-1 d-none text-myBlue d-sm-inline">Mes
+                                        tickets</span>
+                            </button>
                         </li>
                         <li>
                             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-speedometer2"></i> <span
-                                    class="ms-1 d-none d-sm-inline text-myBlue">Ma comptabilité</span> </a>
+                                <i class="fs-4 bi-speedometer2"></i> <a @click.prevent="openComptabilite()"
+                                    class="ms-1 d-none d-sm-inline  text-decoration-none text-myBlue">Ma comptabilité <ChevronUp :size="16" v-if="!chevron" /> <ChevronDown :size="16" v-if="chevron"/> </a>  </a>
                             <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span
-                                            class="d-none d-sm-inline text-myBlue">profil1</span> 1
+                                    <a href="#" class="nav-link px-0"> <router-link to="/client/withdraw" ><span
+                                        class="d-none soustitre d-sm-inline text-mylittltBlue">Effectuer un retrait</span></router-link>  
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0"> <span
-                                            class="d-none d-sm-inline text-myBlue">profil</span> 2
+                                            class="d-none soustitre d-sm-inline text-mylittltBlue">Mes retraits</span>
                                     </a>
                                 </li>
                             </ul>
@@ -83,7 +77,8 @@ export default {
         return {
             phone: '',
             password: '',
-            profils: []
+            profils: [],
+            chevron:true
         }
     },
     mounted() {
@@ -141,10 +136,13 @@ export default {
                 console.error("Erreur :", error);
             }
         },
-        displayList(profil){
+        displayList(){
             this.$router.push({path:"/client/ticketsListe"});
             let useProfil= useProfilStore();
-            useProfil.setProfil(profil);
+            useProfil.clearProfil();
+        },
+        openComptabilite(){
+            this.chevron=!this.chevron;
         }
     }
 }
@@ -161,4 +159,8 @@ hr {
 .view {
     background-color: rgb(241, 240, 247);
 }
+.soustitre{
+    font-size: 14px !important;
+}
+
 </style>
