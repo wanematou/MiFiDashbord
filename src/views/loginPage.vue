@@ -1,22 +1,43 @@
 <template>
-    <div class="main align-items-center">
-        <h3>Template Design Login Form</h3>
-        <h5>MiFi</h5>
-        <div class="formBox">
-            <form action class="loginform" @submit.prevent="userLogin()">
-                <div class="mb-5">
-                    <label for="exampleFormControlInput1" class="form-label">Telephone</label>
-                    <input type="text" class="form-control tel " v-model="phone" id="phone" placeholder="">
+    <div class="container-fluid w-100 main">
+        <div class="row h-100">
+            <div class="col-sm-6 bg-myOrange">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="../assets/images/anim-1.gif" width="150px" alt="">
+                    </div>
+                </div> <br> <br> <br> <br>
+                <div class="row">
+                    <div class=" offset-2 col-sm-6">
+                        <img src="../assets/images/mifi.png" alt="">
+                    </div>
                 </div>
-                <div class="mb-5">
-                    <label for="exampleFormControlInput1" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control password" v-model="password" id="password"
-                        placeholder="">
+            </div>
+            <div class="col-sm-5 bg-light">
+                <div class="row">
+                    <div class=" ms-5 card col-sm-10 text-center p-3">
+                        <h5>Bienvenue!</h5>
+                        <p>Connectez vous à votre tableau de bord</p>
+                        <div class="formBox">
+                            <form action class="loginform" @submit.prevent="userLogin()">
+                                <div class="mb-5">
+                                    <label for="exampleFormControlInput1" class="form-label">Telephone</label>
+                                    <input type="text" class="form-control tel " v-model="phone" id="phone"
+                                        placeholder="">
+                                </div>
+                                <div class="mb-5">
+                                    <label for="exampleFormControlInput1" class="form-label">Mot de passe</label>
+                                    <input type="password" class="form-control password" v-model="password"
+                                        id="password" placeholder="">
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn bbtn btn-primary  " id="sendBtn">Connexion</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <button type="submit" class="btn bbtn btn-primary  " id="sendBtn">Connexion</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -24,7 +45,7 @@
 <script>
 import Globals from "../store/Globals.js";
 import axios from "axios";
-import {useUserStore} from "../store/user.js";
+import { useUserStore } from "../store/user.js";
 export default {
     data() {
         return {
@@ -59,7 +80,7 @@ export default {
                     if (r.data.data == false || r.data.success == false) {
                         return;
                     } else {
-                        let user= r.data.data;
+                        let user = r.data.data;
                         const userStore = useUserStore();
                         userStore.setUser(user);
                         this.$router.push({ path: "/client/home" });
@@ -82,31 +103,11 @@ export default {
 
 </script>
 
-<style scoped >
-body {
-    font-family: Helvetica;
-    background: #eee;
-    -webkit-font-smoothing: antialiased;
-}
-
+<style scoped>
 .main {
-    background-color: #eee;
-    min-height: 100vh;
-    width: 100% !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 100vh;
 }
-
-.formBox {
-    width: 35% !important;
-    background-color: white;
-    border-radius: 7px;
-    padding: 50px;
-}
-
-h5 {
-    color: #f37907 !important;
-    margin-bottom: 20px !important;
+.card{
+    margin-top: 100px;
 }
 </style>
