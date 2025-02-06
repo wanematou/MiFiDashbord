@@ -1,11 +1,11 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid sideBar">
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <a href="/"
                         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-myBlue text-decoration-none">
-                       <router-link to="/client/home" class="text-decoration-none"><span class="fs-5 d-none d-sm-inline text-myOrange ">MiFi</span></router-link>
+                       <router-link to="/client/home" class="text-decoration-none"><span class="fs-5 fw-bold d-none d-sm-inline text-myOrange ">MiFi</span></router-link>
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
@@ -151,16 +151,20 @@ export default {
 </script>
 <style scoped>
 hr {
-    background-color: #FB8C00;
-    width: 100px;
-    height: 3px;
+    background-color: white;
+    width: 150px;
+    height: 5px;
 }
 
 .view {
-    background-color: rgb(241, 240, 247);
+
+    background-color: #fcf9f9;
 }
 .soustitre{
     font-size: 14px !important;
+}
+.sideBar{
+    background-color: rgb(228, 229, 243) !important;;
 }
 
 </style>

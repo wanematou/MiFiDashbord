@@ -1,2 +1,13 @@
 @import './base.css';
 
+.my-custom-popup {
+    background-color: brown;
+  border-radius: 10px;
+  font-size: 16px;
+}
+.my-small-tittle {
+  color:red !important;
+}
+.my-small-tittlepayment{
+    color: #FB8C00!important;
+}

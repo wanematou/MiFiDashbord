@@ -13,8 +13,8 @@
             </div>
         </div>
         <div class="card conainer p-3">
-            <div class="row mt-3">
-                <div class="card col-sm-5 ms-5">
+            <div class="row ps-3 pe-5  mt-3">
+                <div class="offset-1 card col-sm-5">
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold" >Tickets vendus aujourd'hui</h5>
                         <b class="text-myBlue fw-bold" > <Tickets/> {{ ticketSoldToday }}</b>
@@ -27,29 +27,31 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="card col-sm-5 ms-5">
+            <div class="row ps-3 mt-3 pe-5 ">
+                <div class="offset-1 card col-sm-5 ">
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold" >Total des tickets vendus</h5>
                         <b class="text-myBlue fw-bold" > <Tickets/> {{ totalSoldeTickets }}</b>
                     </div>
                 </div>
-                <div class=" offset-1 card col-sm-5 ">
+                <div class=" offset-1 card  col-sm-5 ">
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold" >Chiffre d'affaire total </h5>
                         <b class="text-myBlue fw-bold" > <Banknote/> {{ totalSolde }} FCFA</b>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="card col-sm-5 ms-5">
+            <div class="row ps-3 pe-5 mt-3">
+                <div class="card offset-1 col-sm-5">
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold" > <Banknote/> Montant total des retraits</h5>
+                        <b class="text-myBlue fw-bold" > <Banknote/> {{ amountWithdrawal }} FCFA</b>
                     </div>
                 </div>
-                <div class="card col-sm-5 offset-1">
+                <div class="card offset-1 col-sm-5">
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold" > <Banknote/> Solde disponible</h5>
+                        <b class="text-myBlue fw-bold" > <Banknote/> {{ availableBalance }} FCFA</b>
                     </div>
                 </div>
             </div>
@@ -69,7 +71,9 @@ export default {
             ticketSoldToday:0,
             todayRecipe:0,
             totalSoldeTickets:0,
-            totalSolde:0
+            totalSolde:0,
+            amountWithdrawal:0,
+            availableBalance:0
         }
     },
     mounted() {
@@ -123,6 +127,35 @@ export default {
                         this.todayRecipe=this.todayRecipe+parseInt(item.amount);
                     }
                 })
+                this.getSuccesswithdrawal();
+            } catch (error) {
+                // Gestion des erreurs
+                console.error("Erreur :", error);
+            }
+
+        },
+        async getSuccesswithdrawal() {
+            this.amountWithdrawal=0;
+            const userStore = useUserStore();
+            let user = userStore.user;
+            let id = user.id;
+            let data = new FormData();
+            data.append('user_id', id)
+            try {
+                const res = await axios(
+                    {
+                        method: "POST",
+                        url: "https://templates.mifi.bf/api/index.php?req=get-withdrawal",
+                        data:data
+                    }
+                );
+                let response=res.data.data;
+                response.forEach((item)=>{
+                    console.log(parseInt(item.amount));
+                    this.amountWithdrawal=this.amountWithdrawal+parseInt(item.amount) ;
+                    
+                })
+                this.availableBalance= parseInt(this.totalSolde)-this.amountWithdrawal
             } catch (error) {
                 // Gestion des erreurs
                 console.error("Erreur :", error);

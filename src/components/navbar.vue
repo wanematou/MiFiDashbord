@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand text-myBlue "><router-link to="/client/home" class="text-decoration-none">Tableau de bord</router-link> 
                  </a>
@@ -11,7 +11,12 @@
     </nav>
 </template>
 
-<style></style>
+<style scoped>
+    .navbar{
+        background-color: rgb(228, 229, 243) !important;
+        z-index: 10;
+    }
+</style>
 
 <script>
 

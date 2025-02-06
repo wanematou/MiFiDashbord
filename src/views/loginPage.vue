@@ -78,6 +78,18 @@ export default {
                     console.log(response);
                     let r = response;
                     if (r.data.data == false || r.data.success == false) {
+                        this.$swal({
+                            title: 'Erreur',
+                            text: 'Numéro ou mot de passe incorrect',
+                            confirmButtonText: 'Réessayer',
+                            confirmButtonColor: '#3085d6',
+                            background: '#f5f5f5',
+                            customClass: {
+                                popup: 'my-custom-popup',
+                                title:'my-small-tittle',
+                            }
+                        });
+
                         return;
                     } else {
                         let user = r.data.data;
@@ -88,11 +100,18 @@ export default {
                 })
                 .catch((error) => {
                     if (error.code == 'ERR_NETWORK') {
-                        this.$swal.fire.fire({
-                            title: "Erreur",
-                            text: "Veuillez vérifier votre accès à internet",
-                            icon: "error"
+                        this.$swal({
+                            title: 'Erreur',
+                            text: 'Veuillez verifier votre accès à internet',
+                            confirmButtonText: 'Réessayer',
+                            confirmButtonColor: '#3085d6',
+                            background: '#f5f5f5',
+                            customClass: {
+                                popup: 'my-custom-popup',
+                                title:'my-small-tittle',
+                            }
                         });
+                        
                     }
                     console.log(error);
                 });
@@ -107,7 +126,11 @@ export default {
 .main {
     height: 100vh;
 }
-.card{
+
+.card {
     margin-top: 100px;
 }
+
+
+
 </style>
