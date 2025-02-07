@@ -27,7 +27,7 @@
                                     class="ms-1 d-none d-sm-inline  text-decoration-none text-myBlue">Ma comptabilité <ChevronUp :size="16" v-if="!chevron" /> <ChevronDown :size="16" v-if="chevron"/> </a>  </a>
                             <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <router-link to="/client/withdraw" ><span
+                                    <a href="#" class="nav-link px-0"> <router-link to="/client/withdraw" class="text-decoration-none " ><span
                                         class="d-none soustitre d-sm-inline text-mylittltBlue">Effectuer un retrait</span></router-link>  
                                     </a>
                                 </li>
@@ -55,9 +55,6 @@
                                     class="ms-1 d-none d-sm-inline text-myBlue">Deconnexion</span></a>
                         </li>
                     </ul>
-
-
-
                 </div>
             </div>
             <div class="col py-3 view">

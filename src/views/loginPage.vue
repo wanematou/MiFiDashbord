@@ -1,21 +1,21 @@
 <template>
-    <div class="container-fluid w-100 main">
+    <div class="container-fluid w-100 main bg-dark">
         <div class="row h-100">
-            <div class="col-sm-6 bg-myOrange">
+            <div class="col-sm-5 bg-myOrange">
                 <div class="row">
                     <div class="col-sm-3">
                         <img src="../assets/images/anim-1.gif" width="150px" alt="">
                     </div>
                 </div> <br> <br> <br> <br>
                 <div class="row">
-                    <div class=" offset-2 col-sm-6">
+                    <div class=" offset-1 col-sm-6">
                         <img src="../assets/images/mifi.png" alt="">
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5 bg-light">
-                <div class="row">
-                    <div class=" ms-5 card col-sm-10 text-center p-3">
+            <div class=" offset-1 col-sm-5">
+                <div class="row  Bienvenue">
+                    <div class=" ms-5 card col-sm-10 text-center p-3 ">
                         <h5>Bienvenue!</h5>
                         <p>Connectez vous à votre tableau de bord</p>
                         <div class="formBox">
@@ -73,6 +73,7 @@ export default {
                 method: "POST",
                 url: Globals.webside_url + "index.php?req=user-login",
                 data: data,
+                timeout:Globals.timeout
             })
                 .then((response) => {
                     console.log(response);
@@ -95,6 +96,7 @@ export default {
                         let user = r.data.data;
                         const userStore = useUserStore();
                         userStore.setUser(user);
+                        localStorage.setItem('token',this.generateToken());
                         this.$router.push({ path: "/client/home" });
                     }
                 })
@@ -117,6 +119,15 @@ export default {
                 });
 
         },
+        generateToken() {
+            return (
+                Math.random().toString(36).substring(2, 15) +
+                "-" +
+                Math.random().toString(36).substring(2, 15) +
+                "-" +
+                Date.now().toString(36)
+            );
+        },
     }
 }
 
@@ -130,7 +141,9 @@ export default {
 .card {
     margin-top: 100px;
 }
-
+.Bienvenue{
+    margin-top: 50px!important;
+}
 
 
 </style>

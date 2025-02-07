@@ -1,7 +1,6 @@
-@import './base.css';
 
 .my-custom-popup {
-    background-color: brown;
+  background-color: brown;
   border-radius: 10px;
   font-size: 16px;
 }
@@ -10,4 +9,13 @@
 }
 .my-small-tittlepayment{
     color: #FB8C00!important;
+}
+.text-myBlue{
+  color: #012970;
+} 
+.bg-myOrange{
+  background-color: #FF6600;
+}
+.text-myOrange{
+  color: #FF6600;
 }

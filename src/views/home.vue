@@ -2,7 +2,7 @@
     <div class=" main">
         <div class=" container mb-5 ">
             <div class="row">
-                <h3 class="text-myBlue">Tableau de bord en ligne-MiFi</h3>
+                <h3 class="text-myBlue fw-bold ">Tableau de bord en ligne-MiFi</h3>
             </div>
             <div class="row">
                 <nav aria-label="breadcrumb">
@@ -14,44 +14,56 @@
         </div>
         <div class="card conainer p-3">
             <div class="row ps-3 pe-5  mt-3">
-                <div class="offset-1 card col-sm-5">
+                <div class="offset-1 card cardd col-sm-5">
                     <div class="card-body">
-                        <h5 class="text-myBlue fw-bold" >Tickets vendus aujourd'hui</h5>
-                        <b class="text-myBlue fw-bold" > <Tickets/> {{ ticketSoldToday }}</b>
+                        <h5 class="text-myBlue fw-bold">Tickets vendus aujourd'hui</h5>
+                        <b class="text-myBlue fw-bold">
+                            <Tickets /> {{ ticketSoldToday }}
+                        </b>
                     </div>
                 </div>
-                <div class=" offset-1 card col-sm-5">
+                <div class=" offset-1 card cardd col-sm-5">
                     <div class="card-body">
-                        <h5 class="text-myBlue fw-bold" >Recette du jour</h5>
-                        <b class="text-myBlue fw-bold" > <PiggyBank/> {{ todayRecipe }} FCFA </b>
+                        <h5 class="text-myBlue fw-bold">Recette du jour</h5>
+                        <b class="text-myBlue fw-bold">
+                            <PiggyBank /> {{ todayRecipe }} FCFA
+                        </b>
                     </div>
                 </div>
             </div>
             <div class="row ps-3 mt-3 pe-5 ">
-                <div class="offset-1 card col-sm-5 ">
+                <div class="offset-1 card cardd col-sm-5 ">
                     <div class="card-body">
-                        <h5 class="text-myBlue fw-bold" >Total des tickets vendus</h5>
-                        <b class="text-myBlue fw-bold" > <Tickets/> {{ totalSoldeTickets }}</b>
+                        <h5 class="text-myBlue fw-bold">Total des tickets vendus</h5>
+                        <b class="text-myBlue fw-bold">
+                            <Tickets /> {{ totalSoldeTickets }}
+                        </b>
                     </div>
                 </div>
-                <div class=" offset-1 card  col-sm-5 ">
+                <div class=" offset-1 card cardd col-sm-5 ">
                     <div class="card-body">
-                        <h5 class="text-myBlue fw-bold" >Chiffre d'affaire total </h5>
-                        <b class="text-myBlue fw-bold" > <Banknote/> {{ totalSolde }} FCFA</b>
+                        <h5 class="text-myBlue fw-bold">Chiffre d'affaire total </h5>
+                        <b class="text-myBlue fw-bold">
+                            <Banknote /> {{ totalSolde }} FCFA
+                        </b>
                     </div>
                 </div>
             </div>
             <div class="row ps-3 pe-5 mt-3">
-                <div class="card offset-1 col-sm-5">
+                <div class="card cardd offset-1 col-sm-5">
                     <div class="card-body">
-                        <h5 class="text-myBlue fw-bold" > <Banknote/> Montant total des retraits</h5>
-                        <b class="text-myBlue fw-bold" > <Banknote/> {{ amountWithdrawal }} FCFA</b>
+                        <h5 class="text-myBlue fw-bold"> Montant total des retraits</h5>
+                        <b class="text-myBlue fw-bold">
+                            <Banknote /> {{ amountWithdrawal }} FCFA
+                        </b>
                     </div>
                 </div>
-                <div class="card offset-1 col-sm-5">
+                <div class="card cardd offset-1 col-sm-5">
                     <div class="card-body">
-                        <h5 class="text-myBlue fw-bold" > <Banknote/> Solde disponible</h5>
-                        <b class="text-myBlue fw-bold" > <Banknote/> {{ availableBalance }} FCFA</b>
+                        <h5 class="text-myBlue fw-bold"> Solde disponible</h5>
+                        <b class="text-myBlue fw-bold">
+                            <Banknote /> {{ availableBalance }} FCFA
+                        </b>
                     </div>
                 </div>
             </div>
@@ -68,12 +80,12 @@ export default {
             phone: '',
             password: '',
             tarifName: '',
-            ticketSoldToday:0,
-            todayRecipe:0,
-            totalSoldeTickets:0,
-            totalSolde:0,
-            amountWithdrawal:0,
-            availableBalance:0
+            ticketSoldToday: 0,
+            todayRecipe: 0,
+            totalSoldeTickets: 0,
+            totalSolde: 0,
+            amountWithdrawal: 0,
+            availableBalance: 0
         }
     },
     mounted() {
@@ -98,7 +110,7 @@ export default {
 
         },
         async getSuccessTransaction() {
-            this.todayRecipe=0;
+            this.todayRecipe = 0;
             const userStore = useUserStore();
             let user = userStore.user;
             let id = user.id;
@@ -109,22 +121,22 @@ export default {
                     {
                         method: "POST",
                         url: "https://templates.mifi.bf/api/index.php?req=get-successTransaction",
-                        data:data
+                        data: data
                     }
                 );
                 console.log(res.data.data)
-                let date= new Date();
-                date= new Intl.DateTimeFormat("fr-CA").format(date);
-                let successTransaction=res.data.data;
-                successTransaction.forEach((item)=>{
-                    let completed_at=item.completed_at.split(" ")[0];
-                    if(item.status=="SUCCESS"){
+                let date = new Date();
+                date = new Intl.DateTimeFormat("fr-CA").format(date);
+                let successTransaction = res.data.data;
+                successTransaction.forEach((item) => {
+                    let completed_at = item.completed_at.split(" ")[0];
+                    if (item.status == "SUCCESS") {
                         this.totalSoldeTickets++;
-                        this.totalSolde=this.totalSolde+parseInt(item.amount);
+                        this.totalSolde = this.totalSolde + parseInt(item.amount);
                     }
-                    if(item.status=="SUCCESS" && completed_at==date ){
+                    if (item.status == "SUCCESS" && completed_at == date) {
                         this.ticketSoldToday++;
-                        this.todayRecipe=this.todayRecipe+parseInt(item.amount);
+                        this.todayRecipe = this.todayRecipe + parseInt(item.amount);
                     }
                 })
                 this.getSuccesswithdrawal();
@@ -135,7 +147,7 @@ export default {
 
         },
         async getSuccesswithdrawal() {
-            this.amountWithdrawal=0;
+            this.amountWithdrawal = 0;
             const userStore = useUserStore();
             let user = userStore.user;
             let id = user.id;
@@ -146,16 +158,16 @@ export default {
                     {
                         method: "POST",
                         url: "https://templates.mifi.bf/api/index.php?req=get-withdrawal",
-                        data:data
+                        data: data
                     }
                 );
-                let response=res.data.data;
-                response.forEach((item)=>{
+                let response = res.data.data;
+                response.forEach((item) => {
                     console.log(parseInt(item.amount));
-                    this.amountWithdrawal=this.amountWithdrawal+parseInt(item.amount) ;
-                    
+                    this.amountWithdrawal = this.amountWithdrawal + parseInt(item.amount);
+
                 })
-                this.availableBalance= parseInt(this.totalSolde)-this.amountWithdrawal
+                this.availableBalance = parseInt(this.totalSolde) - this.amountWithdrawal
             } catch (error) {
                 // Gestion des erreurs
                 console.error("Erreur :", error);
@@ -165,4 +177,12 @@ export default {
     }
 }
 </script>
-<style></style>
+<style>
+.cardd{
+    cursor: pointer!important;
+}
+.cardd:hover {
+    transform: translateY(-8px) scale(1.05)!important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15)!important;
+}
+</style>

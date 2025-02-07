@@ -20,30 +20,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-11 m-3">
-                    <table class=" table table-striped ">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Tarif</th>
-                                <th scope="col">Mot de passe</th>
-                                <th scope="col">Durée</th>
-                                <th scope="col">Statut</th>
-                                <th scope="col">Nombre d'utilisateur</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(profil, id) in profils" :key="id">
-                                <th scope="row">{{ id + 1 }}</th>
-                                <td>{{ profil.name }}</td>
-                                <td>{{ profil.duration }}</td>
-                                <td>{{ profil.price }}</td>
-                                <td>{{ profil.limitData }}</td>
-                                <td>{{ profil.debitUpDown }}</td>
-                                <td>{{ profil.userperticket }}</td>
-
-                            </tr>
-                        </tbody>
-                    </table>
+                    <v-data-table :items="tickets"></v-data-table>
                 </div>
             </div>
         </div>
@@ -58,18 +35,51 @@ export default {
         return {
             phone: '',
             password: '',
-            tarifName: ''
+            tarifName: '',
+            tickets: [],
+            profils: {}
         }
     },
     mounted() {
-        this.getTicket();
+        this.readProfil();
     },
     methods: {
+        async readProfil() {
+            const userStore = useUserStore();
+            let user = userStore.user;
+            let id = user.id;
+            let data = new FormData();
+            data.append('user_id', id)
+            try {
+                const res = await axios(
+                    {
+                        method: "POST",
+                        url: "https://templates.mifi.bf/api/index.php?req=read-profilDasbord",
+                        data: data,
+                    }
+                );
+                let profils = res.data.data;
+                profils.forEach((item) => {
+                    this.profils[item.timestamp] = item
+
+                })
+                console.log(this.profils)
+                this.getTicket();
+            } catch (error) {
+                // Gestion des erreurs
+                console.error("Erreur :", error);
+            }
+        },
         async getTicket() {
             let useProfil = useProfilStore();
             if (useProfil.profil) {
                 this.tarifName = useProfil.profil.name;
             }
+            const userStore = useUserStore();
+            let user = userStore.user;
+            let id = user.id;
+            let data = new FormData();
+            data.append('user_id', id)
             try {
                 const res = await axios(
                     {
@@ -78,12 +88,47 @@ export default {
 
                     }
                 );
-                console.log(res)
+                let response = res.data.data;
+                let tickets = {};
+                let timestamp = 1737976520903; // Exemple timestamp
+                let date = new Date(timestamp);
+
+                console.log(date.toLocaleString()); // Affiche une date lisible
+                let count = 1;
+                response.forEach((data) => {
+                    let timestamp = data.profil;
+                    let date = this.timestampToDate(timestamp);
+                    let profil = this.profils[timestamp].profilData;
+                    let userperticket = profil.split(',')[1].split(':')[1].replaceAll('\"', '').replaceAll('}', '');
+                    let price = profil.split(',')[0].split(':')[1].split(';')[2];
+                    let limitData = profil.split(',')[0].split(':')[1].split(';')[4];
+                    let duration = profil.split(',')[0].split(':')[1].split(';')[5];
+                    duration = duration.replace("d", "j");
+                    duration = duration.replace("h", "h");
+                    duration = duration.replace("m", "min");
+                    if (limitData > '1024') {
+                        limitData = parseInt(limitData) / 1024 + 'Go'
+                    } else {
+                        limitData = limitData + 'Mo'
+                    }
+                    if (!tickets[timestamp]) {
+                        tickets[timestamp] = { date, count, userperticket, price, limitData, duration }
+                    } else {
+                        tickets[timestamp].count++
+                    }
+
+                })
+                console.log(tickets)
             } catch (error) {
                 // Gestion des erreurs
                 console.error("Erreur :", error);
             }
 
+        },
+        timestampToDate(timestamp) {
+            timestamp = parseInt(timestamp);
+            let date = new Date(timestamp);
+            return date.toLocaleString();
         }
     }
 }

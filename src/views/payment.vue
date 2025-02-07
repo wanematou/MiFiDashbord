@@ -9,7 +9,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item "><a href=""> <router-link to="/client/home">Acceuil</router-link>
                             </a></li>
-                        <li class="breadcrumb-item"><a href="#">Ma comptabilité</a></li>
+                        <li class="breadcrumb-item">Ma comptabilité</li>
                         <li class="breadcrumb-item active" aria-current="page">Effectuer un retrait</li>
                     </ol>
                 </nav>
@@ -60,7 +60,7 @@
                                     <label for="exampleFormControlInput1" class="form-label">Confirmez votre mot de
                                         passe</label>
                                     <input type="password" class="form-control password" v-model="password"
-                                        id="password" placeholder="confirmer votre mot de passe de connexion">
+                                        id="password" placeholder="confirmez votre mot de passe de connexion">
                                 </div>
                                 <div>
                                     <button type="submit" class="btn bbtn btn-primary  " id="sendBtn">Soumettre</button>

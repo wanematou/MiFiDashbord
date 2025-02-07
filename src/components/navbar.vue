@@ -15,6 +15,7 @@
     .navbar{
         background-color: rgb(228, 229, 243) !important;
         z-index: 10;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15)!important;
     }
 </style>
 
