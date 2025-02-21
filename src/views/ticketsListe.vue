@@ -8,8 +8,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Tickets</li>
-                        <li class="breadcrumb-item active" aria-current="page">Tarifs {{ tarifName }} </li>
+                        <li class="breadcrumb-item active" aria-current="page">Tickets</li>
                     </ol>
                 </nav>
             </div>
@@ -63,7 +62,6 @@ export default {
                     this.profils[item.timestamp] = item
 
                 })
-                console.log(this.profils)
                 this.getTicket();
             } catch (error) {
                 // Gestion des erreurs
@@ -94,31 +92,43 @@ export default {
                 let date = new Date(timestamp);
 
                 console.log(date.toLocaleString()); // Affiche une date lisible
-                let count = 1;
+                let Nombre = 1;
                 response.forEach((data) => {
                     let timestamp = data.profil;
-                    let date = this.timestampToDate(timestamp);
+                    let Date = this.timestampToDate(timestamp);
                     let profil = this.profils[timestamp].profilData;
-                    let userperticket = profil.split(',')[1].split(':')[1].replaceAll('\"', '').replaceAll('}', '');
-                    let price = profil.split(',')[0].split(':')[1].split(';')[2];
-                    let limitData = profil.split(',')[0].split(':')[1].split(';')[4];
-                    let duration = profil.split(',')[0].split(':')[1].split(';')[5];
-                    duration = duration.replace("d", "j");
-                    duration = duration.replace("h", "h");
-                    duration = duration.replace("m", "min");
-                    if (limitData > '1024') {
-                        limitData = parseInt(limitData) / 1024 + 'Go'
+                    let UtilisateurParTicket = profil.split(',')[1].split(':')[1].replaceAll('\"', '').replaceAll('}', '');
+                    let Prix = profil.split(',')[0].split(':')[1].split(';')[2];
+                    let LimiteDeDonnée = profil.split(',')[0].split(':')[1].split(';')[4];
+                    let Durée = profil.split(',')[0].split(':')[1].split(';')[5];
+                    Durée = Durée.replace("d", "j");
+                    Durée = Durée.replace("h", "h");
+                    Durée = Durée.replace("m", "min");
+                    let TicketsVendus=0;
+                    if (LimiteDeDonnée > '1024') {
+                        LimiteDeDonnée = parseInt(LimiteDeDonnée) / 1024 + 'Go'
                     } else {
-                        limitData = limitData + 'Mo'
+                        LimiteDeDonnée = LimiteDeDonnée + 'Mo'
                     }
                     if (!tickets[timestamp]) {
-                        tickets[timestamp] = { date, count, userperticket, price, limitData, duration }
+                        if(data.status=='achete'){
+                            TicketsVendus++;
+                        }
+                        tickets[timestamp] = { Date, Nombre, UtilisateurParTicket, Prix, LimiteDeDonnée, Durée, TicketsVendus }
                     } else {
-                        tickets[timestamp].count++
+                        if(data.status=='achete'){
+                            tickets[timestamp].TicketsVendus++
+                        }
+                        tickets[timestamp].Nombre++
                     }
 
                 })
-                console.log(tickets)
+                this.tickets= Object.values(tickets);
+                this.tickets.forEach((item)=>{
+                    let TicketsNonVendus=  parseInt(item.Nombre) - parseInt(item.TicketsVendus);
+                    item.TicketNonVendu=TicketsNonVendus;
+                    console.log(item);
+                });
             } catch (error) {
                 // Gestion des erreurs
                 console.error("Erreur :", error);

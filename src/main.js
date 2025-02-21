@@ -16,6 +16,12 @@ import {
   ChevronDown,
   Users,
   Mail,
+  UserPen,
+  Trash2,
+  GalleryThumbnails,
+  Landmark,
+  FileStack,
+  LogOut
 } from "lucide-vue-next";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -43,4 +49,10 @@ app.component("ChevronUp", ChevronUp);
 app.component("ChevronDown", ChevronDown);
 app.component("Users", Users);
 app.component("Mail", Mail);
+app.component('UserPen', UserPen);
+app.component('Trash2', Trash2);
+app.component('Landmark', Landmark);
+app.component('FileStack', FileStack);
+app.component('LogOut', LogOut);
+app.component('GalleryThumbnails', GalleryThumbnails);
 app.mount("#app");

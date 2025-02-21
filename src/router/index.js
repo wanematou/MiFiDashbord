@@ -5,6 +5,9 @@ import Profil from "../views/profils.vue";
 import TicketsListe from '../views/ticketsListe.vue';
 import Home from '../views/home.vue';
 import Payment from "@/views/payment.vue";
+import Withdrawals from '../views/myWithdrawals.vue';
+import AddTemplate from '../views/addTemplate.vue';
+import TemplateList from '../views/listTemplate.vue'
 
  const router = createRouter({
   history: createWebHashHistory(),
@@ -39,6 +42,19 @@ import Payment from "@/views/payment.vue";
           path: "/client/withdraw",
           component: Payment,
           
+        },
+        {
+          path: "/client/withdrawals",
+          component: Withdrawals,
+          
+        },
+        {
+          path: "/client/addTemplate",
+          component: AddTemplate,
+        },
+        {
+          path: "/client/templateList",
+          component: TemplateList,
         },
       ],
     },

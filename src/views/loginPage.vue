@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid w-100 main bg-dark">
-        <div class="row h-100">
-            <div class="col-sm-5 bg-myOrange">
+        <div class="row h-100 ">
+            <div class="col-sm-5 bg-myOrange part1">
                 <div class="row">
                     <div class="col-sm-3">
                         <img src="../assets/images/anim-1.gif" width="150px" alt="">
@@ -9,11 +9,12 @@
                 </div> <br> <br> <br> <br>
                 <div class="row">
                     <div class=" offset-1 col-sm-6">
-                        <img src="../assets/images/mifi.png" alt="">
+                        <img class="logoMiFiPart1" src="../assets/images/mifi.png" alt="">
                     </div>
                 </div>
             </div>
-            <div class=" offset-1 col-sm-5">
+            <div class=" offset-1 col-sm-5 part2">
+                <img class="logoMiFi" src="../assets/images/mifi.png" alt="">
                 <div class="row  Bienvenue">
                     <div class=" ms-5 card col-sm-10 text-center p-3 ">
                         <h5>Bienvenue!</h5>
@@ -73,7 +74,7 @@ export default {
                 method: "POST",
                 url: Globals.webside_url + "index.php?req=user-login",
                 data: data,
-                timeout:Globals.timeout
+                timeout: Globals.timeout
             })
                 .then((response) => {
                     console.log(response);
@@ -87,7 +88,7 @@ export default {
                             background: '#f5f5f5',
                             customClass: {
                                 popup: 'my-custom-popup',
-                                title:'my-small-tittle',
+                                title: 'my-small-tittle',
                             }
                         });
 
@@ -96,12 +97,12 @@ export default {
                         let user = r.data.data;
                         const userStore = useUserStore();
                         userStore.setUser(user);
-                        localStorage.setItem('token',this.generateToken());
+                        localStorage.setItem('token', this.generateToken());
                         this.$router.push({ path: "/client/home" });
                     }
                 })
                 .catch((error) => {
-                    if (error.code == 'ERR_NETWORK') {
+                    if (error) {
                         this.$swal({
                             title: 'Erreur',
                             text: 'Veuillez verifier votre accès à internet',
@@ -110,10 +111,10 @@ export default {
                             background: '#f5f5f5',
                             customClass: {
                                 popup: 'my-custom-popup',
-                                title:'my-small-tittle',
+                                title: 'my-small-tittle',
                             }
                         });
-                        
+
                     }
                     console.log(error);
                 });
@@ -141,9 +142,39 @@ export default {
 .card {
     margin-top: 100px;
 }
-.Bienvenue{
-    margin-top: 50px!important;
+
+.Bienvenue {
+    margin-top: 50px !important;
 }
 
+.logoMiFi {
+    display: none;
+}
 
+@media screen and (min-width: 100px) and (max-width: 800px) {
+    .part1 {
+        display: none;
+    }
+
+    .main {
+        background-color: #FF6600 !important;
+    }
+
+    .part2 {
+        width: 70% !important;
+    }
+
+    .logoMiFi {
+        width: 150px !important;
+        height: auto !important;
+        display: block;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+    .logoMiFiPart1 {
+        width: 250px !important;
+        height: auto !important;
+    }
+}
 </style>

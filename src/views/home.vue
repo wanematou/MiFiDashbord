@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold">Tickets vendus aujourd'hui</h5>
                         <b class="text-myBlue fw-bold">
-                            <Tickets /> {{ ticketSoldToday }}
+                            <Tickets color="#FF6600"/> {{ ticketSoldToday }}
                         </b>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold">Recette du jour</h5>
                         <b class="text-myBlue fw-bold">
-                            <PiggyBank /> {{ todayRecipe }} FCFA
+                            <PiggyBank color="#FF6600"/> {{ todayRecipe }} FCFA
                         </b>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold">Total des tickets vendus</h5>
                         <b class="text-myBlue fw-bold">
-                            <Tickets /> {{ totalSoldeTickets }}
+                            <Tickets color="#FF6600" /> {{ totalSoldeTickets }}
                         </b>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold">Chiffre d'affaire total </h5>
                         <b class="text-myBlue fw-bold">
-                            <Banknote /> {{ totalSolde }} FCFA
+                            <Banknote color="#FF6600" /> {{ totalSolde }} FCFA
                         </b>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold"> Montant total des retraits</h5>
                         <b class="text-myBlue fw-bold">
-                            <Banknote /> {{ amountWithdrawal }} FCFA
+                            <Banknote color="#FF6600"/> {{ amountWithdrawal }} FCFA
                         </b>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="card-body">
                         <h5 class="text-myBlue fw-bold"> Solde disponible</h5>
                         <b class="text-myBlue fw-bold">
-                            <Banknote /> {{ availableBalance }} FCFA
+                            <Banknote color="#FF6600"/> {{ availableBalance }} FCFA
                         </b>
                     </div>
                 </div>

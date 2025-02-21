@@ -2,7 +2,7 @@
     <div class=" main">
         <div class=" container mb-5 ">
             <div class="row">
-                <h3 class="text-myBlue">Tableau de bord en ligne-MiFi</h3>
+                <h3 class="text-myBlue">Effectuer une demande de retrait</h3>
             </div>
             <div class="row">
                 <nav aria-label="breadcrumb">

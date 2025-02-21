@@ -71,8 +71,33 @@ const usePaymentStore = defineStore('payment', {
   },
 });
 
+// Store for currentPaymentMode
+const useTemplateStore = defineStore('template', {
+  state: () => ({
+   template: null,
+  }),
+  actions: {
+    setTemplate(template) {
+      this.template = template;
+    },
+    clearTemplate() {
+      this.template = null;
+    },
+  },
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'template',
+        storage: localStorage, 
+      },
+    ],
+  },
+});
+
 export {
   useUserStore,
   useProfilStore,
   usePaymentStore,
+  useTemplateStore ,
 };
