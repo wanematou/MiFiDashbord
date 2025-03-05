@@ -19,3 +19,7 @@
 .text-myOrange{
   color: #FF6600;
 }
+html, body {
+  overflow-x: hidden;
+  width: 100vw;
+}

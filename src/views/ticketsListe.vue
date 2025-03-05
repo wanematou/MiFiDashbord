@@ -7,7 +7,7 @@
             <div class="row">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                        <li class="breadcrumb-item"><router-link to="/client/home" class="text-decoration-none" >Acceuil</router-link></li>
                         <li class="breadcrumb-item active" aria-current="page">Tickets</li>
                     </ol>
                 </nav>
@@ -15,7 +15,7 @@
         </div>
         <div class="card conainer">
             <div class="row mt-3">
-                <h5 class=" offset-1 col-sm-6 text-myBlue">Vos forfaits WiFi</h5>
+                <h5 class=" offset-1 col-sm-6 text-myBlue">Vos Tickets WiFi</h5>
             </div>
             <div class="row">
                 <div class="col-sm-11 m-3">

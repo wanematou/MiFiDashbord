@@ -1,7 +1,7 @@
 <template>
-    <div class="navBar">
+    <!-- <div class="navBar">
         <NavBar />
-    </div>
+    </div> -->
     <div class="main-container">
         <SideBar />
     </div>
@@ -14,20 +14,16 @@
     box-sizing: border-box;
 }
 
-.navBar {
+/* .navBar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px; /* Hauteur fixée pour la barre de navigation */
+    height: 60px; 
     z-index: 1000;
-}
+} */
 
-.main-container {
-    margin-top: 60px!important;
-    /* Décalage pour éviter la superposition avec navBar */
-    
-}
+
 </style>
 
 <script>

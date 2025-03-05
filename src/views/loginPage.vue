@@ -1,6 +1,6 @@
 <template>
-    <div class="container-fluid w-100 main bg-dark">
-        <div class="row h-100 ">
+    <div class="container-fluid main bg-dark">
+        <div class="row h-100 mainBox">
             <div class="col-sm-5 bg-myOrange part1">
                 <div class="row">
                     <div class="col-sm-3">
@@ -13,12 +13,14 @@
                     </div>
                 </div>
             </div>
-            <div class=" offset-1 col-sm-5 part2">
+            <div class="col-sm-5 part2">
                 <img class="logoMiFi" src="../assets/images/mifi.png" alt="">
                 <div class="row  Bienvenue">
-                    <div class=" ms-5 card col-sm-10 text-center p-3 ">
-                        <h5>Bienvenue!</h5>
-                        <p>Connectez vous à votre tableau de bord</p>
+                    <div class=" card col-sm-10 p-3 ">
+                        <div class="text-center">
+                            <h5>Bienvenue!</h5>
+                            <p>Connectez vous à votre tableau de bord</p>
+                        </div>
                         <div class="formBox">
                             <form action class="loginform" @submit.prevent="userLogin()">
                                 <div class="mb-5">
@@ -137,31 +139,61 @@ export default {
 <style scoped>
 .main {
     height: 100vh;
+    width: 100%;
 }
 
-.card {
-    margin-top: 100px;
+.mainBox {
+    width: 100%;
+
+}
+
+.part2 {
+    margin: auto;
+    height: 100vh;
 }
 
 .Bienvenue {
-    margin-top: 50px !important;
+    height: 100vh;
+}
+
+.card {
+    margin: auto !important;
+    height: 50% !important;
+
 }
 
 .logoMiFi {
     display: none;
 }
 
-@media screen and (min-width: 100px) and (max-width: 800px) {
+.logoMiFiPart1 {
+    width: 250px !important;
+    height: auto !important;
+}
+
+@media screen and (min-width: 570px) and (max-width: 800px) {
     .part1 {
-        display: none;
+        display: none !important;
     }
 
     .main {
-        background-color: #FF6600 !important;
+        background-color: #fc690e !important;
     }
 
     .part2 {
-        width: 70% !important;
+        width: 100% !important;
+        height: 100vh;
+    }
+
+    .Bienvenue {
+        background-color: rgb(0, 0, 5);
+        height: 80vh;
+    }
+
+    .card {
+        margin: auto !important;
+        height: 50% !important;
+
     }
 
     .logoMiFi {
@@ -171,10 +203,42 @@ export default {
     }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1200px) {
-    .logoMiFiPart1 {
-        width: 250px !important;
+@media screen and (min-width: 200px) and (max-width: 570px) {
+    .part1 {
+        display: none !important;
+    }
+
+    .main {
+        background-color: #fc690e !important;
+        width: 100%!important;
+        overflow: hidden;
+    }
+
+    .part2 {
+        width: 100% !important;
+        margin: auto !important;
+        height: 100vh;
+       
+    }
+
+    .Bienvenue {
+        background-color: rgb(0, 0, 5);
+        margin: auto !important;
+        height: 80vh;
+        width: 100% !important;
+    }
+
+    .card {
+        margin: auto !important;
+        height: 50% !important;
+        width: 80%!important;
+
+    }
+
+    .logoMiFi {
+        width: 150px !important;
         height: auto !important;
+        display: block;
     }
 }
 </style>

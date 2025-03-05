@@ -2,13 +2,12 @@
     <div class=" main">
         <div class=" container mb-5 ">
             <div class="row">
-                <h3 class="text-myBlue">Suivez en ligne vos retraits sur MiFi</h3>
+                <h3 class="text-myBlue">Suivez en ligne vos retraits</h3>
             </div>
             <div class="row">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><a href=""> <router-link to="/client/home">Acceuil</router-link>
-                            </a></li>
+                        <li class="breadcrumb-item "><router-link to="/client/home" class="text-decoration-none" >Acceuil</router-link></li>
                         <li class="breadcrumb-item">Ma comptabilité</li>
                         <li class="breadcrumb-item active" aria-current="page">Mes retraits</li>
                     </ol>

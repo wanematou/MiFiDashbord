@@ -7,7 +7,7 @@
             <div class="row">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                        <li class="breadcrumb-item "><router-link to="/client/home" class="text-decoration-none" >Acceuil</router-link></li>
                         <li class="breadcrumb-item active" aria-current="page">Tarifs</li>
                     </ol>
                 </nav>

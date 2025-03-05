@@ -2,14 +2,14 @@
     <div>
         <!-- Bouton pour afficher/masquer le sidebar sur mobile -->
         <button class="btn btn-primary d-lg-none" @click="toggleSidebar"
-            style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+            style="position: fixed; top: 10px; left: 10px; z-index: 1200;">
             ☰
         </button>
 
         <!-- Sidebar -->
-        <div class="container-fluid sideBar"
+        <div class="container-fluid sideBar pt-3"
             :class="{ 'sidebar-visible': isSidebarVisible, 'sidebar-hidden': !isSidebarVisible }">
-            <div class="row flex-nowrap ">
+            <div class="row flex-nowrap sidebox">
                 <div class="col-auto col-md-12 col-xl-12 px-sm-2 px-0 ">
                     <div
                         class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100">
@@ -200,7 +200,6 @@ export default {
     width: 250px;
     height: 100vh;
     position: fixed;
-    top: 65px;
     left: 0;
     transition: transform 0.3s ease;
     z-index: 1000;
@@ -231,6 +230,9 @@ export default {
 @media (max-width: 992px) {
     .view {
         margin-left: 0;
+    }
+    .sidebox{
+        padding-top: 30px;
     }
 }
 
