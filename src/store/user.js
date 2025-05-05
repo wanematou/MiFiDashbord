@@ -47,6 +47,30 @@ const useProfilStore = defineStore('profil', {
   },
 });
 
+// Store for currentRouter
+const useRouterStore = defineStore('router', {
+  state: () => ({
+    router: null,
+  }),
+  actions: {
+    setRouter(router) {
+      this.router = router;
+    },
+    clearRouter() {
+      this.router = null;
+    },
+  },
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'router',
+        storage: localStorage, 
+      },
+    ],
+  },
+});
+
 // Store for currentPaymentMode
 const usePaymentStore = defineStore('payment', {
   state: () => ({
@@ -100,4 +124,5 @@ export {
   useProfilStore,
   usePaymentStore,
   useTemplateStore ,
+  useRouterStore
 };

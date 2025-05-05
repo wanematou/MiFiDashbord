@@ -1,6 +1,6 @@
 <template>
     <div class=" main">
-        <div class=" container mb-5 ">
+        <div class=" container mb-5 head">
             <div class="row">
                 <h3 class="text-myBlue fw-bold ">Tableau de bord en ligne-MiFi</h3>
             </div>
@@ -12,67 +12,85 @@
                 </nav>
             </div>
         </div>
-        <div class="card conainer p-3">
-            <div class="row ps-3 pe-5  mt-3">
-                <div class="offset-1 card cardd col-sm-5">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold">Tickets vendus aujourd'hui</h5>
-                        <b class="text-myBlue fw-bold">
-                            <Tickets color="#FF6600"/> {{ ticketSoldToday }}
-                        </b>
+        <div class="container m-auto">
+            <!-- Ligne 1 -->
+            <div class="row mt-3 gx-4">
+                <div class="col-12 col-md-5 offset-md-1 mb-3">
+                    <div class="card cardd h-100">
+                        <div class="card-body">
+                            <h5 class="text-myBlue fw-bold">Tickets vendus aujourd'hui</h5>
+                            <b class="text-myBlue fw-bold">
+                                <Tickets color="#FF6600" /> {{ ticketSoldToday }}
+                            </b>
+                        </div>
                     </div>
                 </div>
-                <div class=" offset-1 card cardd col-sm-5">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold">Recette du jour</h5>
-                        <b class="text-myBlue fw-bold">
-                            <PiggyBank color="#FF6600"/> {{ todayRecipe }} FCFA
-                        </b>
-                    </div>
-                </div>
-            </div>
-            <div class="row ps-3 mt-3 pe-5 ">
-                <div class="offset-1 card cardd col-sm-5 ">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold">Total des tickets vendus</h5>
-                        <b class="text-myBlue fw-bold">
-                            <Tickets color="#FF6600" /> {{ totalSoldeTickets }}
-                        </b>
-                    </div>
-                </div>
-                <div class=" offset-1 card cardd col-sm-5 ">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold">Chiffre d'affaire total </h5>
-                        <b class="text-myBlue fw-bold">
-                            <Banknote color="#FF6600" /> {{ totalSolde }} FCFA
-                        </b>
+                <div class="col-12 col-md-5 mb-3">
+                    <div class="card cardd h-100">
+                        <div class="card-body">
+                            <h5 class="text-myBlue fw-bold">Recette du jour</h5>
+                            <b class="text-myBlue fw-bold">
+                                <PiggyBank color="#FF6600" /> {{ todayRecipe }} FCFA
+                            </b>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-3 pe-5 mt-3">
-                <div class="card cardd offset-1 col-sm-5">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold"> Montant total des retraits</h5>
-                        <b class="text-myBlue fw-bold">
-                            <Banknote color="#FF6600"/> {{ amountWithdrawal }} FCFA
-                        </b>
+
+            <!-- Ligne 2 -->
+            <div class="row mt-3 gx-4">
+                <div class="col-12 col-md-5 offset-md-1 mb-3">
+                    <div class="card cardd h-100">
+                        <div class="card-body">
+                            <h5 class="text-myBlue fw-bold">Total des tickets vendus</h5>
+                            <b class="text-myBlue fw-bold">
+                                <Tickets color="#FF6600" /> {{ totalSoldeTickets }}
+                            </b>
+                        </div>
                     </div>
                 </div>
-                <div class="card cardd offset-1 col-sm-5">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold"> Solde disponible</h5>
-                        <b class="text-myBlue fw-bold">
-                            <Banknote color="#FF6600"/> {{ availableBalance }} FCFA
-                        </b>
+                <div class="col-12 col-md-5 mb-3">
+                    <div class="card cardd h-100">
+                        <div class="card-body">
+                            <h5 class="text-myBlue fw-bold">Chiffre d'affaire total</h5>
+                            <b class="text-myBlue fw-bold">
+                                <Banknote color="#FF6600" /> {{ totalSolde }} FCFA
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ligne 3 -->
+            <div class="row mt-3 gx-4">
+                <div class="col-12 col-md-5 offset-md-1 mb-3">
+                    <div class="card cardd h-100">
+                        <div class="card-body">
+                            <h5 class="text-myBlue fw-bold">Montant total des retraits</h5>
+                            <b class="text-myBlue fw-bold">
+                                <Banknote color="#FF6600" /> {{ amountWithdrawal }} FCFA
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 mb-3">
+                    <div class="card cardd h-100">
+                        <div class="card-body">
+                            <h5 class="text-myBlue fw-bold">Solde disponible</h5>
+                            <b class="text-myBlue fw-bold">
+                                <Banknote color="#FF6600" /> {{ availableBalance }} FCFA
+                            </b>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 <script>
 import Globals from "../store/Globals.js";
-import { useUserStore, useProfilStore } from "../store/user.js";
+import { useUserStore, useProfilStore, useRouterStore } from "../store/user.js";
 import axios from "axios";
 export default {
     data() {
@@ -88,34 +106,32 @@ export default {
             availableBalance: 0
         }
     },
+    created() {
+        Globals.DashboardVue = this;
+    },
     mounted() {
-        this.getTicket();
+
         this.getSuccessTransaction();
     },
     methods: {
-        async getTicket() {
-            try {
-                const res = await axios(
-                    {
-                        method: "POST",
-                        url: "https://templates.mifi.bf/api/index.php?req=get-Tickets",
 
-                    }
-                );
-                console.log(res)
-            } catch (error) {
-                // Gestion des erreurs
-                console.error("Erreur :", error);
-            }
-
-        },
         async getSuccessTransaction() {
             this.todayRecipe = 0;
+            this.totalSolde = 0;
+            this.totalSoldeTickets = 0;
+            this.ticketSoldToday = 0;
+            this.todayRecipe = 0;
             const userStore = useUserStore();
-            let user = userStore.user;
-            let id = user.id;
+            this.routerStore = useRouterStore();
+            console.log(this.routerStore.router);
+            if (this.routerStore.router == null || !this.routerStore.router) {
+                console.log('pas de router selectionné')
+                return;
+            }
+            let id = this.routerStore.router.id;
+            console.log(id);
             let data = new FormData();
-            data.append('user_id', id)
+            data.append('router_id', id)
             try {
                 const res = await axios(
                     {
@@ -148,11 +164,12 @@ export default {
         },
         async getSuccesswithdrawal() {
             this.amountWithdrawal = 0;
+            this.availableBalance = 0;
             const userStore = useUserStore();
-            let user = userStore.user;
-            let id = user.id;
+            this.routerStore = useRouterStore();
+            let id = this.routerStore.router.id;
             let data = new FormData();
-            data.append('user_id', id)
+            data.append('router_id', id)
             try {
                 const res = await axios(
                     {
@@ -161,6 +178,7 @@ export default {
                         data: data
                     }
                 );
+                console.log(res);
                 let response = res.data.data;
                 response.forEach((item) => {
                     console.log(parseInt(item.amount));
@@ -178,11 +196,14 @@ export default {
 }
 </script>
 <style>
-.cardd{
-    cursor: pointer!important;
+.cardd {
+    cursor: pointer !important;
 }
+
 .cardd:hover {
-    transform: translateY(-8px) scale(1.05)!important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15)!important;
+    transform: translateY(-8px) scale(1.05) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
 }
+
+
 </style>

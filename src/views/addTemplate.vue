@@ -1,76 +1,78 @@
 <template>
     <div class=" main">
-        <div class=" container mb-5 ">
+        <div class=" container my-5 ">
             <div class="row">
-                <h3 class="text-myBlue">Tableau de bord en ligne-MiFi</h3>
-            </div>
-            <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><a href=""> <router-link to="/client/home">Acceuil</router-link>
-                            </a></li>
-                        <li class="breadcrumb-item">Templates de tickets</li>
-                        <li class="breadcrumb-item active" aria-current="page">Ajouter un template</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <div class=" card align-items-center pt-5 pb-5 vh-auto main">
-            <div class="container-fluid " id="formContainer">
-                <div id="form_div row  ">
-                    <form action class="col-sm-8 offset-2 bg-light card p-3 " id="monFormulaire"
-                        @submit.prevent="submitForm()">
-                        <div class="mb-3">
-                            <label for="imageURl" class="form-label">Image</label>
-                            <input type="file" @change="checkImage($event)" class="form-control" id="url" name="url">
-                        </div>
-                        <div class="mb-3">
-                            <label for="code" class="form-label">Code</label>
-                            <textarea class="form-control" v-model="codeOfTemplate" name="code" rows="10"
-                                placeholder="Si votre template concerne les tickets de type user veuillez Ajouter {{user}} et {{code}} respectivement dans les balise o첫 vous souhaitez stocker le user et le password. Si votre template concerne les tickets de type code veuillez Ajouter {{code}}  dans les balises o첫 vous souhaiter stocker le code."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mt" class="form-label">Hauteur du ticket</label>
-                            <input type="text" class="form-control h-12" name="mt" v-model="ticketHeight"
-                                placeholder="100px">
-                        </div>
-                        <div class="mb-3">
-                            <label for="mb" class="form-label">Hauteur entre les
-                                tickets</label>
-                            <input type="text" class="form-control" v-model="gapHeight" name="mb" placeholder="15px">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="type" class="form-label">Type</label>
-                            <select name="type" v-model="type" class="form-select h-4 form-select-sm mb-3"
-                                aria-label=".form-select-lg example">
-                                <option value="user">User</option>
-                                <option value="code">Code</option>
-                                <option value="qrcode">QrCode</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label for="type" class="form-label">Visibilité</label>
-                            <select name="type" v-model="visibilite" class="form-select h-4 form-select-sm mb-3"
-                                aria-label=".form-select-lg example">
-                                <option value="public">Public</option>
-                                <option value="private">Privée</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn bbtn btn-primary mb-2 w-25">
-                            {{ isEdit ? "Modifier" : "Enregistrer" }}
-                        </button>
-                        <button type="button" @click="cancel()" v-if="isEdit" class="btn bbtn btn-primary w-25 "
-                            id="cancelBtn">Annuler</button>
-                    </form>
+                <div class="col">
+                    <h3 class="text-myBlue">Tableau de bord en ligne-MiFi</h3>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item "><a href=""> <router-link
+                                        to="/client/home">Acceuil</router-link>
+                                </a></li>
+                            <li class="breadcrumb-item">Templates de tickets</li>
+                            <li class="breadcrumb-item active" aria-current="page">Ajouter un template</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class=" card align-items-center py-5 vh-auto row">
+                <form action class=" col-8 col-md-8  bg-light card py-3 " id="monFormulaire"
+                    @submit.prevent="submitForm()">
+                    <div class="mb-3">
+                        <label for="imageURl" class="form-label">Image</label>
+                        <input type="file" @change="checkImage($event)" class="form-control" id="url" name="url">
+                    </div>
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code</label>
+                        <textarea class="form-control" v-model="codeOfTemplate" name="code" rows="10"
+                            placeholder="Si votre template concerne les tickets de type user veuillez Ajouter {{user}} et {{code}} respectivement dans les balise où vous souhaitez stocker le user et le password. Si votre template concerne les tickets de type code veuillez Ajouter {{code}}  dans les balises où vous souhaiter stocker le code."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mt" class="form-label">Hauteur du ticket</label>
+                        <input type="text" class="form-control h-12" name="mt" v-model="ticketHeight"
+                            placeholder="100px">
+                    </div>
+                    <div class="mb-3">
+                        <label for="mb" class="form-label">Hauteur entre les
+                            tickets</label>
+                        <input type="text" class="form-control" v-model="gapHeight" name="mb" placeholder="15px">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="type" class="form-label">Type</label>
+                        <select name="type" v-model="type" class="form-select h-4 form-select-sm mb-3"
+                            aria-label=".form-select-lg example">
+                            <option value="user">User</option>
+                            <option value="code">Code</option>
+                            <option value="qrcode">QrCode</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="type" class="form-label">Visibilité</label>
+                        <select name="type" v-model="visibilite" class="form-select h-4 form-select-sm mb-3"
+                            aria-label=".form-select-lg example">
+                            <option value="public">Public</option>
+                            <option value="private">Privée</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn bbtn btn-primary mb-2 w-25">
+                        {{ isEdit ? "Modifier" : "Enregistrer" }}
+                    </button>
+                    <button type="button" @click="cancel()" v-if="isEdit" class="btn bbtn btn-primary w-25 "
+                        id="cancelBtn">Annuler</button>
+                </form>
             </div>
         </div>
     </div>
 </template>
 <script>
 import Globals from "../store/Globals.js";
-import { useUserStore, useTemplateStore} from "../store/user.js";
+import { useUserStore, useTemplateStore } from "../store/user.js";
 import axios from "axios";
 export default {
     data() {
@@ -81,9 +83,9 @@ export default {
             codeOfTemplate: '',
             type: '',
             isEdit: false,
-            userId:'',
-            visibilite:'',
-            editId:''
+            userId: '',
+            visibilite: '',
+            editId: ''
 
         }
     },
@@ -100,29 +102,29 @@ export default {
             this.userId = user.id;
             this.phone = user.phone;
         },
-        getEditData(){
+        getEditData() {
             const templateStore = useTemplateStore();
-            let template=templateStore.template;
-            if(template){
-                this.isEdit=true;
-                this.codeOfTemplate=template.code;
-                this.type=template.type;
-                this.visibilite=template.visibility;
-                this.ticketHeight=template.ticketHeight;
-                this.gapHeight=template.gapHeight;
-                this.editId=template.id
+            let template = templateStore.template;
+            if (template) {
+                this.isEdit = true;
+                this.codeOfTemplate = template.code;
+                this.type = template.type;
+                this.visibilite = template.visibility;
+                this.ticketHeight = template.ticketHeight;
+                this.gapHeight = template.gapHeight;
+                this.editId = template.id
             }
             templateStore.clearTemplate()
         },
-        cancel(){
+        cancel() {
             const templateStore = useTemplateStore();
-                this.isEdit=false;
-                this.codeOfTemplate='';
-                this.type='';
-                this.visibilite='';
-                this.ticketHeight='';
-                this.gapHeight='';
-                templateStore.clearTemplate()
+            this.isEdit = false;
+            this.codeOfTemplate = '';
+            this.type = '';
+            this.visibilite = '';
+            this.ticketHeight = '';
+            this.gapHeight = '';
+            templateStore.clearTemplate()
         },
         checkImage(event) {
             this.image = event.target.files[0];
@@ -222,10 +224,10 @@ export default {
                     }
                 );
                 console.log(res)
-                this.codeOfTemplate='';
-                this.ticketHeight='';
-                this.gapHeight='';
-                this.type='';
+                this.codeOfTemplate = '';
+                this.ticketHeight = '';
+                this.gapHeight = '';
+                this.type = '';
                 this.$swal({
                     title: 'MiFi',
                     text: 'Votre template à été ajouté avec succès',
@@ -317,19 +319,19 @@ export default {
             data.append("type", this.type);
             data.append("visibilite", this.visibilite);
             data.append("id", this.editId);
-            data.append("image",this.image);
-           console.log(marginBottom,this.ticketHeight,this.gapHeight,
-           this.type,this.visibilite,this.editId,this.image)
+            data.append("image", this.image);
+            console.log(marginBottom, this.ticketHeight, this.gapHeight,
+                this.type, this.visibilite, this.editId, this.image)
             try {
                 const res = await axios(
                     {
                         method: "POST",
                         url: "https://templates.mifi.bf/api/index.php?req=template-update",
-                        data:data
+                        data: data
                     }
                 );
                 console.log(res)
-                this.$router.push({path:"/client/templateList"});
+                this.$router.push({ path: "/client/templateList" });
             } catch (error) {
                 // Gestion des erreurs
                 console.error("Erreur :", error);

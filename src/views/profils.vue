@@ -2,12 +2,13 @@
     <div class=" main">
         <div class=" container mb-5 ">
             <div class="row">
-                <h3 class="text-myBlue" >Suivez en ligne vos Tarifs sur MiFi</h3>
+                <h3 class="text-myBlue">Suivez en ligne vos Tarifs sur MiFi</h3>
             </div>
             <div class="row">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><router-link to="/client/home" class="text-decoration-none" >Acceuil</router-link></li>
+                        <li class="breadcrumb-item "><router-link to="/client/home"
+                                class="text-decoration-none">Acceuil</router-link></li>
                         <li class="breadcrumb-item active" aria-current="page">Tarifs</li>
                     </ol>
                 </nav>
@@ -18,7 +19,7 @@
                 <h5 class=" offset-1 col-sm-6 text-myBlue">Vos forfaits WiFi</h5>
             </div>
             <div class="row">
-                <div class="col-sm-11 m-3">
+                <div class="table-responsive">
                     <table class=" table table-striped ">
                         <thead>
                             <tr>
@@ -51,7 +52,7 @@
 </template>
 <script>
 import Globals from "../store/Globals.js";
-import { useUserStore } from "../store/user.js";
+import { useUserStore, useProfilStore , useRouterStore} from "../store/user.js";
 import axios from "axios";
 export default {
     data() {
@@ -62,57 +63,77 @@ export default {
         }
     },
     mounted() {
-        this.readProfil();
+        this.readProfils();
     },
     methods: {
-        async readProfil() {
-            const userStore = useUserStore();
-            let user = userStore.user;
-            let id = user.id;
+        async readProfils() {
+            this.routerStore = useRouterStore();
+            console.log(this.routerStore.router);
+            if(!this.routerStore.router){
+                this.$swal({
+                        title: 'MiFi',
+                        text: 'Veuillez selectionner un routeur,puis actualiser!',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3085d6',
+                        background: '#f5f5f5',
+                        customClass: {
+                            popup: 'my-custom-popup',
+                            title: 'my-small-tittlepayment',
+                        }
+                    });
+                    return;
+            }
+            let id = this.routerStore.router.id;
             let data = new FormData();
-            data.append('user_id', id)
+            data.append('router_id', id);
             try {
-                const res = await axios(
-                    {
-                        method: "POST",
-                        url: "https://templates.mifi.bf/api/index.php?req=read-profilDasbord",
-                        data: data,
-                    }
-                );
+                const res = await axios({
+                    method: "POST",
+                    url: "https://templates.mifi.bf/api/index.php?req=read-profilDasbord",
+                    data: data,
+                });
                 let profils = res.data.data;
-                profils.forEach((data) => {
-                    data = data.profilData.split(',');
-                    let pname = data[0].split(';');
-                    let name = pname[0].split(':')[1].substring(14);
-                    let duration = pname[5];
-                    duration = duration.replace("d", "j");
-                    duration = duration.replace("h", "h");
-                    duration = duration.replace("m", "min");
-                    let price = pname[2] + 'F CFA';
-                    let userperticket = data[1].split(':')[1];
-                    userperticket = userperticket.replaceAll('\"', '');
-                    userperticket = userperticket.replaceAll('\}', '');
-                    let debitUpDown = pname[3];
-                    let dataLimit = pname[4];
-                    if (dataLimit>'1024'){
-                        dataLimit=parseInt(dataLimit)/1024+'Go'
-                    }else{
-                        dataLimit=dataLimit+'Mo'
-                    }
-                    let profil = {
-                        name: name,
-                        duration: duration,
-                        userperticket: userperticket,
-                        price: price,
-                        debitUpDown: debitUpDown,
-                        limitData: dataLimit,
-                    }
-                    this.profils.push(profil);
-                })
+                let useProfil = useProfilStore();
+                useProfil.setProfil(profils);
+                this.readProfil(profils);
             } catch (error) {
-                // Gestion des erreurs
                 console.error("Erreur :", error);
             }
+        },
+        async readProfil() {
+            let useProfil = useProfilStore();
+            console.log(useProfil.profil);
+            let profils=useProfil.profil;
+            profils.forEach((data) => {
+                data = data.profilData.split(',');
+                let pname = data[0].split(';');
+                let name = pname[0].split(':')[1].substring(14);
+                let duration = pname[5];
+                duration = duration.replace("d", "j");
+                duration = duration.replace("h", "h");
+                duration = duration.replace("m", "min");
+                let price = pname[2] + 'F CFA';
+                let userperticket = data[1].split(':')[1];
+                userperticket = userperticket.replaceAll('\"', '');
+                userperticket = userperticket.replaceAll('\}', '');
+                let debitUpDown = pname[3];
+                let dataLimit = pname[4];
+                if (dataLimit > '1024') {
+                    dataLimit = parseInt(dataLimit) / 1024 + 'Go'
+                } else {
+                    dataLimit = dataLimit + 'Mo'
+                }
+                let profil = {
+                    name: name,
+                    duration: duration,
+                    userperticket: userperticket,
+                    price: price,
+                    debitUpDown: debitUpDown,
+                    limitData: dataLimit,
+                }
+                this.profils.push(profil);
+            })
+
         }
     }
 }

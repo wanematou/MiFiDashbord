@@ -1,109 +1,182 @@
 <template>
     <div>
-        <!-- Bouton pour afficher/masquer le sidebar sur mobile -->
-        <button class="btn btn-primary d-lg-none" @click="toggleSidebar"
-            style="position: fixed; top: 10px; left: 10px; z-index: 1200;">
-            ☰
+      <!-- Bouton pour afficher/masquer le sidebar sur mobile -->
+      <div style="padding-top: 50px">
+        <button
+          class="btn btn-primary d-lg-none"
+          @click="toggleSidebar"
+          style="position: fixed; top: 10px; left: 10px; z-index: 1200"
+        >
+          ☰
         </button>
-
-        <!-- Sidebar -->
-        <div class="container-fluid sideBar pt-3"
-            :class="{ 'sidebar-visible': isSidebarVisible, 'sidebar-hidden': !isSidebarVisible }">
-            <div class="row flex-nowrap sidebox">
-                <div class="col-auto col-md-12 col-xl-12 px-sm-2 px-0 ">
-                    <div
-                        class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100">
-
-                        
-                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                            id="menu">
-                            <div class="card">
-                                <li class="nav-item mt-3 mb-3">
-                                    <a href="" class="nav-link align-middle px-0">
-                                        <router-link to="/client/profils"
-                                            class="text-decoration-none text-myBlue fw-bold">
-                                            <GalleryThumbnails  :size="25" /> Mes tarifs
-                                        </router-link>
-                                    </a>
-                                </li>
-                                <li class="nav-item mb-3">
-                                    <a href="" @click.prevent="displayList()"
-                                        class="nav-link align-middle fw-bold text-myBlue px-0">
-                                        <Tickets  :size="25" />
-                                        Mes tickets
-                                    </a>
-                                </li>
-                                <li class="nav-item  mb-3">
-                                    <a href="#submenu3" data-bs-toggle="collapse" @click="openComptabilite()" class="nav-link 
-                   px-0 align-middle  text-myBlue fw-bold">
-                                        <Landmark  :size="25" />
-                                        Ma comptabilité
-                                        <ChevronUp :size="16" v-if="!chevron" />
-                                        <ChevronDown :size="16" v-if="chevron" />
-                                    </a>
-                                    <ul class="collapse  nav flex-column ms-6" id="submenu3" data-bs-parent="#menu">
-                                        <li class="w-100">
-                                            <a href="#" class="nav-link px-0">
-                                                <router-link to="/client/withdraw"
-                                                    class="text-decoration-none">Effectuer un
-                                                    retrait</router-link>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="nav-link px-0">
-                                                <router-link to="/client/withdrawals" class="text-decoration-none">Mes
-                                                    retraits</router-link>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </div>
-                            <hr>
-                            <div class="card">
-                                <li class="nav-item">
-                                    <a href="#submenu2" data-bs-toggle="collapse" @click.prevent="openComptabilite1()"
-                                        class="nav-link px-0 align-middle  text-myBlue fw-bold">
-                                        <FileStack  :size="25" />
-                                        Templates de tickets
-                                        <ChevronUp :size="16" v-if="chevron1" />
-                                        <ChevronDown :size="16" v-if="!chevron1" />
-                                    </a>
-                                    <ul class="collapse nav flex-column ms-6 " id="submenu2" data-bs-parent="#menu">
-                                        <li class="w-100">
-                                            <a href="#" class="nav-link px-0 ">
-                                                <router-link to="/client/addTemplate"
-                                                    class="text-decoration-none ">Ajouter
-                                                    un template</router-link>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="nav-link px-0">
-                                                <router-link to="/client/templateList"
-                                                    class="text-decoration-none">Liste
-                                                    des templates</router-link>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </div>
-
-                        </ul>
-                    </div>
+      </div>
+  
+      <!-- Sidebar -->
+      <div
+        class="container-fluid sideBar pt-3"
+        :class="{ 'sidebar-visible': isSidebarVisible, 'sidebar-hidden': !isSidebarVisible }"
+      >
+        <div class="row flex-nowrap sidebox">
+          <div class="col-auto col-md-12 col-xl-12 px-sm-2 px-0">
+            <div
+              class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100"
+            >
+              <ul
+                class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                id="menu"
+              >
+                <div class="card">
+                  <li class="nav-item mt-3 mb-3">
+                    <select
+                      name=""
+                      id=""
+                      v-model="selected"
+                      class="form-select"
+                      aria-label="Default select example"
+                      @change="routerSelect()"
+                    >
+                      <option value="" disabled selected hidden>
+                        Chossissez un routeur
+                      </option>
+                      <option v-for="option in options" :value="option">
+                        {{ option.name }}
+                      </option>
+                    </select>
+                  </li>
+                  <li class="nav-item mt-3 mb-3">
+                    <router-link
+                      to="/client/profils"
+                      class="nav-link align-middle px-0 text-decoration-none text-myBlue fw-bold"
+                      @click="closeToggleSidebar"
+                    >
+                      <GalleryThumbnails :size="25" /> Mes tarifs
+                    </router-link>
+                  </li>
+                  <li class="nav-item mb-3">
+                    <a
+                      href="#"
+                      @click.prevent="displayList()"
+                      class="nav-link align-middle fw-bold text-myBlue px-0"
+                    >
+                      <Tickets :size="25" /> Mes tickets
+                    </a>
+                  </li>
+                  <li class="nav-item mb-3">
+                    <a
+                      href="#submenu3"
+                      data-bs-toggle="collapse"
+                      @click="openComptabilite()"
+                      class="nav-link px-0 align-middle text-myBlue fw-bold"
+                    >
+                      <Landmark :size="25" /> Ma comptabilité
+                      <ChevronUp :size="16" v-if="!chevron" />
+                      <ChevronDown :size="16" v-if="chevron" />
+                    </a>
+                    <ul
+                      class="collapse nav flex-column ms-6"
+                      id="submenu3"
+                      data-bs-parent="#menu"
+                    >
+                      <li class="w-100">
+                        <router-link
+                          to="/client/withdraw"
+                          class="nav-link px-0 text-decoration-none"
+                          @click="closeToggleSidebar"
+                        >
+                          Effectuer un retrait
+                        </router-link>
+                      </li>
+                      <li>
+                        <router-link
+                          to="/client/withdrawals"
+                          class="nav-link px-0 text-decoration-none"
+                          @click="closeToggleSidebar"
+                        >
+                          Mes retraits
+                        </router-link>
+                      </li>
+                    </ul>
+                  </li>
                 </div>
+  
+                <hr />
+  
+                <div class="card">
+                  <li class="nav-item">
+                    <a
+                      href="#submenu2"
+                      data-bs-toggle="collapse"
+                      @click.prevent="openComptabilite1()"
+                      class="nav-link px-0 align-middle text-myBlue fw-bold"
+                    >
+                      <FileStack :size="25" /> Templates de tickets
+                      <ChevronUp :size="16" v-if="chevron1" />
+                      <ChevronDown :size="16" v-if="!chevron1" />
+                    </a>
+                    <ul
+                      class="collapse nav flex-column ms-6"
+                      id="submenu2"
+                      data-bs-parent="#menu"
+                    >
+                      <li class="w-100">
+                        <router-link
+                          to="/client/addTemplate"
+                          class="nav-link px-0 text-decoration-none"
+                          @click="closeToggleSidebar"
+                        >
+                          Ajouter un template
+                        </router-link>
+                      </li>
+                      <li>
+                        <router-link
+                          to="/client/templateList"
+                          class="nav-link px-0 text-decoration-none"
+                          @click="closeToggleSidebar"
+                        >
+                          Liste des templates
+                        </router-link>
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+  
+                <hr />
+  
+                <div class="card">
+                  <li class="nav-item mt-3 mb-3">
+                    <div class="nav-link align-middle px-0">
+                      <div
+                        class="text-decoration-none text-myBlue fw-bold"
+                        @click="LogOut()"
+                      >
+                        <LogOut :size="25" /> Déconnexion
+                      </div>
+                    </div>
+                  </li>
+                </div>
+              </ul>
             </div>
+          </div>
         </div>
-
-        <!-- Contenu principal -->
-        <div class="col py-3 view"
-            :class="{ 'content-expanded': !isSidebarVisible, 'content-collapsed': isSidebarVisible }">
-            <router-view class="routerview"></router-view>
-        </div>
+      </div>
+  
+      <!-- Contenu principal -->
+      <div
+        class="col py-3 view"
+        :class="{
+          'content-expanded': !isSidebarVisible,
+          'content-collapsed': isSidebarVisible,
+        }"
+      >
+        <router-view class="routerview"></router-view>
+      </div>
     </div>
-</template>
+  </template>
+  
 
 <script>
 import Globals from "../store/Globals.js";
-import { useUserStore, useProfilStore } from "../store/user.js";
+import { useUserStore, useProfilStore, useRouterStore } from "../store/user.js";
 import axios from "axios";
 
 export default {
@@ -111,26 +184,73 @@ export default {
         return {
             phone: '',
             password: '',
+            options: [],
+            selected: '',
             profils: [],
+            routerStore: '',
             chevron: true,
             chevron1: true,
             isSidebarVisible: window.innerWidth > 992, // Afficher le sidebar par défaut sur desktop
         };
     },
     mounted() {
-        this.readProfil();
+        this.getRouter();
         window.addEventListener('resize', this.handleResize);
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.handleResize);
     },
     methods: {
-        async readProfil() {
+        async getRouter() {
+            let data = new FormData();
             const userStore = useUserStore();
             let user = userStore.user;
             let id = user.id;
+            data.append("id", id);
+            axios({
+                url:
+                    Globals.webside_url +
+                    "index.php?req=user-get-routers",
+                method: "post",
+                data: data,
+            })
+                .then((response) => {
+                    let res = response.data.data;
+                    this.options = res;
+                    console.log(res);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        routerSelect() {
+            if (this.options == '') {
+                this.$swal({
+                    title: 'Erreur',
+                    text: 'Vérifiez votre accès à internet et réessayez',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3085d6',
+                    background: '#f5f5f5',
+                    customClass: {
+                        popup: 'my-custom-popup',
+                        title: 'my-small-tittle',
+                    }
+                });
+                return;
+            }
+            this.routerStore = useRouterStore();
+            let router = this.selected;
+            this.routerStore.setRouter(router);
+            this.readProfil();
+            setTimeout(() => {
+                Globals.DashboardVue.getSuccessTransaction();
+            }, 1000);
+
+        },
+        async readProfil() {
+            let id = this.routerStore.router.id;
             let data = new FormData();
-            data.append('user_id', id);
+            data.append('router_id', id);
             try {
                 const res = await axios({
                     method: "POST",
@@ -138,6 +258,10 @@ export default {
                     data: data,
                 });
                 let profils = res.data.data;
+                let useProfil = useProfilStore();
+                useProfil.setProfil(profils);
+                profils = Object.values(profils);
+                console.log(typeof profils)
                 profils.forEach((data) => {
                     data = data.profilData.split(',');
                     let pname = data[0].split(';');
@@ -169,14 +293,18 @@ export default {
                     };
                     this.profils.push(profil);
                 });
+
             } catch (error) {
                 console.error("Erreur :", error);
             }
         },
         displayList() {
+            if (window.innerWidth < 993){
+                this.isSidebarVisible=false;
+            }  
             this.$router.push({ path: "/client/ticketsListe" });
-            let useProfil = useProfilStore();
-            useProfil.clearProfil();
+            // let useProfil = useProfilStore();
+            // useProfil.clearProfil();
         },
         openComptabilite() {
             this.chevron = !this.chevron;
@@ -187,9 +315,23 @@ export default {
         toggleSidebar() {
             this.isSidebarVisible = !this.isSidebarVisible;
         },
+        closeToggleSidebar(){
+            if (window.innerWidth < 993){
+                this.isSidebarVisible=false;
+            }     
+        },
         handleResize() {
             this.isSidebarVisible = window.innerWidth > 992;
         },
+        LogOut() {
+            let userStore = useUserStore();
+            userStore.clearUser();
+            let profilStore = useProfilStore();
+            profilStore.clearProfil();
+            let routerStore = useRouterStore();
+            routerStore.clearRouter();
+            this.$router.push({ path: "/" })
+        }
     },
 };
 </script>
@@ -231,7 +373,8 @@ export default {
     .view {
         margin-left: 0;
     }
-    .sidebox{
+
+    .sidebox {
         padding-top: 30px;
     }
 }
@@ -258,7 +401,7 @@ hr {
 
 .card {
     background-color: white;
-    padding-left: 30px;
-    width: 210px;
+    padding: 5px;
+    width: 220px;
 }
 </style>

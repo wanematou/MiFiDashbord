@@ -1,49 +1,54 @@
 <template>
-    <div class="container-fluid main bg-dark">
-        <div class="row h-100 mainBox">
-            <div class="col-sm-5 bg-myOrange part1">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img src="../assets/images/anim-1.gif" width="150px" alt="">
-                    </div>
-                </div> <br> <br> <br> <br>
-                <div class="row">
-                    <div class=" offset-1 col-sm-6">
-                        <img class="logoMiFiPart1" src="../assets/images/mifi.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-5 part2">
-                <img class="logoMiFi" src="../assets/images/mifi.png" alt="">
-                <div class="row  Bienvenue">
-                    <div class=" card col-sm-10 p-3 ">
-                        <div class="text-center">
-                            <h5>Bienvenue!</h5>
-                            <p>Connectez vous à votre tableau de bord</p>
-                        </div>
-                        <div class="formBox">
-                            <form action class="loginform" @submit.prevent="userLogin()">
-                                <div class="mb-5">
-                                    <label for="exampleFormControlInput1" class="form-label">Telephone</label>
-                                    <input type="text" class="form-control tel " v-model="phone" id="phone"
-                                        placeholder="">
-                                </div>
-                                <div class="mb-5">
-                                    <label for="exampleFormControlInput1" class="form-label">Mot de passe</label>
-                                    <input type="password" class="form-control password" v-model="password"
-                                        id="password" placeholder="">
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn bbtn btn-primary  " id="sendBtn">Connexion</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="login-container">
+      <div class="login-wrapper">
+        <!-- Partie gauche avec le GIF et le logo -->
+        <div class="login-branding">
+          <div class="animation-container">
+            <img src="../assets/images/anim-1.gif" alt="Animation" class="brand-animation">
+          </div>
+          <img src="../assets/images/mifi.png" alt="MiFi Logo" class="brand-logo">
         </div>
+  
+        <!-- Partie droite avec le formulaire -->
+        <div class="login-form-container">
+          <img src="../assets/images/mifi.png" alt="MiFi Logo" class="mobile-logo">
+          
+          <div class="login-card">
+            <div class="login-header">
+              <h2>Bienvenue !</h2>
+              <p>Connectez-vous à votre tableau de bord</p>
+            </div>
+            
+            <form class="login-form" @submit.prevent="userLogin()">
+              <div class="form-group">
+                <label for="phone">Téléphone</label>
+                <input 
+                  type="text" 
+                  id="phone" 
+                  v-model="phone" 
+                  class="form-control"
+                  placeholder="Votre numéro de téléphone"
+                >
+              </div>
+              
+              <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  v-model="password" 
+                  class="form-control"
+                  placeholder="Votre mot de passe"
+                >
+              </div>
+              
+              <button type="submit" class="login-button">Connexion</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-</template>
+  </template>
 
 <script>
 import Globals from "../store/Globals.js";
@@ -135,110 +140,194 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.main {
-    height: 100vh;
+  <style scoped>
+  .login-container {
     width: 100%;
-}
-
-.mainBox {
+    min-height: 100vh;
+    background-color: #fc690e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .login-wrapper {
     width: 100%;
-
-}
-
-.part2 {
-    margin: auto;
-    height: 100vh;
-}
-
-.Bienvenue {
-    height: 100vh;
-}
-
-.card {
-    margin: auto !important;
-    height: 50% !important;
-
-}
-
-.logoMiFi {
+    max-width: 1200px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-branding {
+    flex: 1;
+    background-color: #fc690e;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .animation-container {
+    margin-bottom: 60px;
+  }
+  
+  .brand-animation {
+    width: 150px;
+    height: auto;
+  }
+  
+  .brand-logo {
+    width: 250px;
+    height: auto;
+    margin-top: 40px;
+  }
+  
+  .login-form-container {
+    flex: 1;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .mobile-logo {
     display: none;
-}
-
-.logoMiFiPart1 {
-    width: 250px !important;
-    height: auto !important;
-}
-
-@media screen and (min-width: 570px) and (max-width: 800px) {
-    .part1 {
-        display: none !important;
+    width: 150px;
+    height: auto;
+    margin: 0 auto 30px;
+  }
+  
+  .login-card {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .login-header h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .login-header p {
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .form-control:focus {
+    border-color: #fc690e;
+    outline: none;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #fc690e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #e55d0c;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .login-wrapper {
+      flex-direction: column;
     }
-
-    .main {
-        background-color: #fc690e !important;
+    
+    .login-branding {
+      padding: 30px;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
     }
-
-    .part2 {
-        width: 100% !important;
-        height: 100vh;
+    
+    .animation-container {
+      margin-bottom: 0;
     }
-
-    .Bienvenue {
-        background-color: rgb(0, 0, 5);
-        height: 80vh;
+    
+    .brand-logo {
+      margin-top: 0;
+      width: 200px;
     }
-
-    .card {
-        margin: auto !important;
-        height: 50% !important;
-
+  }
+  
+  @media (max-width: 768px) {
+    .login-branding {
+      display: none;
     }
-
-    .logoMiFi {
-        width: 150px !important;
-        height: auto !important;
-        display: block;
+    
+    .mobile-logo {
+      display: block;
     }
-}
-
-@media screen and (min-width: 200px) and (max-width: 570px) {
-    .part1 {
-        display: none !important;
+    
+    .login-form-container {
+      padding: 40px 20px;
     }
-
-    .main {
-        background-color: #fc690e !important;
-        width: 100%!important;
-        overflow: hidden;
+    
+    .login-card {
+      padding: 25px;
+    box-shadow: none;
     }
-
-    .part2 {
-        width: 100% !important;
-        margin: auto !important;
-        height: 100vh;
-       
+  }
+  
+  @media (max-width: 480px) {
+    .login-container {
+      padding: 15px;
     }
-
-    .Bienvenue {
-        background-color: rgb(0, 0, 5);
-        margin: auto !important;
-        height: 80vh;
-        width: 100% !important;
+    
+    .login-wrapper {
+      border-radius: 10px;
     }
-
-    .card {
-        margin: auto !important;
-        height: 50% !important;
-        width: 80%!important;
-
+    
+    .login-form-container {
+        margin: auto;
+      padding: 30px 15px;
     }
-
-    .logoMiFi {
-        width: 150px !important;
-        height: auto !important;
-        display: block;
+    
+    .login-header h2 {
+      font-size: 24px;
     }
-}
-</style>
+  }
+  </style>

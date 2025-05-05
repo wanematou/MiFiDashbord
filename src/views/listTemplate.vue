@@ -1,38 +1,50 @@
 <template>
-    <div class=" main">
-        <div class=" container mb-5 ">
-            <div class="row">
-                <h3 class="text-myBlue">Liste des templates de ticket</h3>
-            </div>
-            <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><a href=""> <router-link to="/client/home">Acceuil</router-link>
-                            </a></li>
-                        <li class="breadcrumb-item">Templates de tickets</li>
-                        <li class="breadcrumb-item active" aria-current="page">Liste des templates</li>
-                    </ol>
-                </nav>
-            </div>
+    <div class="main">
+      <div class="container mb-5">
+        <div class="row">
+          <h3 class="text-myBlue">Liste des templates de ticket</h3>
         </div>
-        <div class="card p-3 cardBox">
-            <div class="card carrd" v-for="(template, id) in templates" :key="id">
-                <h6 style="position: absolute; top: 1px;  padding: 1px; border-radius: 5px;">
-                    <span class="badge text-white">{{ template.type }}</span>
-                </h6>
-                <img :src="template.image" class="card-img-top pt-5" alt="...">
-                <div class="carrd-body hidden-content p-1">
-                    <span class="me-3 edit" @click="edit(template)">
-                        <UserPen :size="16" color="#4CAF50" />
-                    </span>
-                    <span @click="remove(template)" v-if="template?.userId == userId" class="delete">
-                        <Trash2 :size="16" color="#e22222" />
-                    </span>
-                </div>
-            </div>
+        <div class="row">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <router-link to="/client/home">Accueil</router-link>
+              </li>
+              <li class="breadcrumb-item">Templates de tickets</li>
+              <li class="breadcrumb-item active" aria-current="page">Liste des templates</li>
+            </ol>
+          </nav>
         </div>
+  
+        <div class="row">
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-4"
+            v-for="(template, id) in templates"
+            :key="id"
+          >
+            <div class="card carrd">
+              <h6 style="position: absolute; top: 1px; padding: 1px; border-radius: 5px; z-index: 1;">
+                <span class="badge text-white">{{ template.type }}</span>
+              </h6>
+              <img :src="template.image" class="card-img-top pt-5" alt="...">
+              <div
+                class="carrd-body hidden-content p-1"
+                v-if="template?.userId == userId"
+              >
+                <span class="me-3 edit" @click="edit(template)">
+                  <UserPen :size="16" color="#4CAF50" />
+                </span>
+                <span @click="remove(template)" class="delete">
+                  <Trash2 :size="16" color="#e22222" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</template>
+  </template>
+  
 <script>
 import Globals from "../store/Globals.js";
 import { useUserStore, useTemplateStore } from "../store/user.js";
@@ -109,54 +121,46 @@ export default {
 </script>
 <style scoped>
 .carrd-body {
-    position: absolute;
-    top: 0%;
-    right: 0px;
-    padding: 5px;
-    background-color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  background-color: white;
 }
 
 .carrd-body.hidden-content {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
 }
 
-/* Montrer le contenu au survol */
 .carrd:hover .carrd-body.hidden-content {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    z-index: 1000;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  z-index: 1000;
 }
 
-/* Style optionnel pour la carte */
 .carrd {
-    position: relative;
-    padding-top: 3px;
-    overflow: hidden;
-    cursor: pointer;
-    height: auto;
-    width: 210px;
-    padding-bottom: 2px;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  width: 210px;
+  overflow: hidden;
+  cursor: pointer;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3px;
+  padding-bottom: 2px;
 }
-
-.cardBox {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1px;
-    grid-auto-rows: minmax(10rem, auto);
-}
-
 
 .edit,
 .delete:hover {
-    background-color: rgb(222, 224, 240);
+  background-color: rgb(222, 224, 240);
 }
-.badge{
-    background-color: #FF6600;
+
+.badge {
+  background-color: #FF6600;
 }
+
 </style>

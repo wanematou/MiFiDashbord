@@ -1,81 +1,116 @@
 <template>
-    <div class=" main">
-        <div class=" container mb-5 ">
-            <div class="row">
-                <h3 class="text-myBlue">Effectuer une demande pour un retrait</h3>
-            </div>
-            <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><router-link to="/client/home" class="text-decoration-none" >Acceuil</router-link></li>
-                        <li class="breadcrumb-item">Ma comptabilité</li>
-                        <li class="breadcrumb-item active" aria-current="page">Effectuer un retrait</li>
-                    </ol>
-                </nav>
-            </div>
+    <div class="main py-4">
+      <div class="container">
+        <div class="row mb-3">
+          <div class="col">
+            <h3 class="text-myBlue">Effectuer une demande pour un retrait</h3>
+          </div>
         </div>
-        <div class="card conainer p-3">
-            <div class="row mt-3">
-                <div class=" ms-5 card bg-light col-sm-5">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold ">Statut de votre compte</h5>
-                        <b class="text-myBlue fw-bold">
-                            <PiggyBank /> {{ todayRecipe }} FCFA
-                        </b>
-                    </div>
-                </div>
-                <div class="offset-1 card col-sm-5 bg-light ">
-                    <div class="card-body">
-                        <h5 class="text-myBlue fw-bold bg-light ">Solde disponilbe</h5>
-                        <b class="text-myBlue fw-bold">
-                            <PiggyBank /> {{ totalSolde }} FCFA
-                        </b>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="card bg-light col-sm-11 ms-5 ">
-                    <div class="card-body ">
-                        <div class="row text-myBlue fw-bold ">
-                            <h5 class=" offset-5 col-sm-6">
-                                <Users /> {{ userName }}
-                            </h5>
-                            <h5 class=" offset-5 col-sm-6">
-                                <Mail /> {{ userEmail }}
-                            </h5>
-                        </div>
-                        <div class="row">
-                            <form action class="loginform offset-3 col-7" @submit.prevent="sendmail()">
-                                <div class="mb-5">
-                                    <label for="exampleFormControlInput1" class="form-label">Telephone</label>
-                                    <input type="tel" class="form-control tel " v-model="tel" id="phone" placeholder="">
-                                </div>
-                                <div class="mb-5">
-                                    <label for="exampleFormControlInput1" class="form-label">Montant</label>
-                                    <input type="text" class="form-control amount" v-model="amount" id="amount"
-                                        placeholder="">
-                                </div>
-                                <div class="mb-5">
-                                    <label for="exampleFormControlInput1" class="form-label">Confirmez votre mot de
-                                        passe</label>
-                                    <input type="password" class="form-control password" v-model="password"
-                                        id="password" placeholder="confirmez votre mot de passe de connexion">
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn bbtn btn-primary  " id="sendBtn">Soumettre</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+  
+        <div class="row mb-4">
+          <div class="col">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <router-link to="/client/home" class="text-decoration-none">Accueil</router-link>
+                </li>
+                <li class="breadcrumb-item">Ma comptabilité</li>
+                <li class="breadcrumb-item active" aria-current="page">Effectuer un retrait</li>
+              </ol>
+            </nav>
+          </div>
         </div>
+  
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-md-6">
+            <div class="card bg-light h-100">
+              <div class="card-body">
+                <h5 class="text-myBlue fw-bold">Statut de votre compte</h5>
+                <b class="text-myBlue fw-bold">
+                  <PiggyBank color="#FF6600" /> {{ status }}
+                </b>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-12 col-md-6">
+            <div class="card bg-light h-100">
+              <div class="card-body">
+                <h5 class="text-myBlue fw-bold">Solde disponible</h5>
+                <b class="text-myBlue fw-bold">
+                  <PiggyBank color="#FF6600" /> {{ availableBalance }} FCFA
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card bg-light mb-4">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6 mb-2">
+                <h5 class="text-myBlue fw-bold">
+                  <Users color="#FF6600" /> {{ userName }}
+                </h5>
+              </div>
+              <div class="col-md-6 mb-2">
+                <h5 class="text-myBlue fw-bold">
+                  <Mail color="#FF6600" /> {{ userEmail }}
+                </h5>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-12 col-md-8 offset-md-2">
+                <form @submit.prevent="sendmail()">
+                  <div class="mb-4">
+                    <label for="phone" class="form-label">Téléphone</label>
+                    <input
+                      type="tel"
+                      class="form-control"
+                      v-model="tel"
+                      id="phone"
+                      placeholder="Votre numéro"
+                    />
+                  </div>
+  
+                  <div class="mb-4">
+                    <label for="amount" class="form-label">Montant</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="amount"
+                      id="amount"
+                      placeholder="Montant à retirer"
+                    />
+                  </div>
+  
+                  <div class="mb-4">
+                    <label for="password" class="form-label">Confirmez votre mot de passe</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      v-model="password"
+                      id="password"
+                      placeholder="Mot de passe de connexion"
+                    />
+                  </div>
+  
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</template>
+  </template>
+  
 <script>
 import Globals from "../store/Globals.js";
-import { useUserStore, useProfilStore } from "../store/user.js";
+import { useUserStore, useProfilStore, useRouterStore } from "../store/user.js";
 import axios from "axios";
 export default {
     data() {
@@ -86,7 +121,6 @@ export default {
             ticketSoldToday: 0,
             todayRecipe: 0,
             totalSoldeTickets: 0,
-            totalSolde: 0,
             userName: '',
             userEmail: '',
             userId: '',
@@ -94,11 +128,12 @@ export default {
             amount: '',
             amountWithdrawal: 0,
             availableBalance: 0,
-            totalSolde: 0
+            totalSolde: 0,
+            isSubmeeting: false,
+            status: ''
         }
     },
     mounted() {
-        this.getTicket();
         this.getSuccessTransaction();
         this.getData()
     },
@@ -113,29 +148,28 @@ export default {
             this.phone = user.phone;
 
         },
-        async getTicket() {
-            try {
-                const res = await axios(
-                    {
-                        method: "POST",
-                        url: "https://templates.mifi.bf/api/index.php?req=get-Tickets",
 
-                    }
-                );
-                console.log(res)
-            } catch (error) {
-                // Gestion des erreurs
-                console.error("Erreur :", error);
-            }
-
-        },
         async getSuccessTransaction() {
             this.totalSolde = 0;
             const userStore = useUserStore();
-            let user = userStore.user;
-            let id = user.id;
+            this.routerStore = useRouterStore();
+            if (!this.routerStore.router) {
+                this.$swal({
+                    title: 'MiFi',
+                    text: 'Veuillez selectionner un routeur,puis actualiser!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3085d6',
+                    background: '#f5f5f5',
+                    customClass: {
+                        popup: 'my-custom-popup',
+                        title: 'my-small-tittlepayment',
+                    }
+                });
+                return;
+            }
+            let id = this.routerStore.router.id;
             let data = new FormData();
-            data.append('user_id', id)
+            data.append('router_id', id)
             try {
                 const res = await axios(
                     {
@@ -162,10 +196,10 @@ export default {
         async getSuccesswithdrawal() {
             this.amountWithdrawal = 0;
             const userStore = useUserStore();
-            let user = userStore.user;
-            let id = user.id;
+            this.routerStore = useRouterStore();
+            let id = this.routerStore.router.id;
             let data = new FormData();
-            data.append('user_id', id)
+            data.append('router_id', id)
             try {
                 const res = await axios(
                     {
@@ -179,8 +213,11 @@ export default {
                     this.amountWithdrawal = this.amountWithdrawal + parseInt(item.amount);
                 })
                 this.availableBalance = parseInt(this.totalSolde) - this.amountWithdrawal;
-                console.log('--------------------------------------------------');
-                console.log(this.availableBalance)
+                if (this.availableBalance > 0) {
+                    this.status = 'Compte fourni'
+                } else if (this.availableBalance == 0) {
+                    this.status = 'Compte vide'
+                }
             } catch (error) {
                 // Gestion des erreurs
                 console.error("Erreur :", error);
@@ -188,7 +225,13 @@ export default {
 
         },
         async sendmail() {
+            if (this.isSubmeeting) {
+                console.log('attend que la première soumissions finisse')
+                return;
+            }
+            this.isSubmeeting = true;
             if (this.amount > this.availableBalance) {
+                this.isSubmeeting = false;
                 this.$swal({
                     title: 'Erreur',
                     text: 'Le montant du retrait est supérieur à votre solde',
@@ -203,6 +246,7 @@ export default {
                 return;
             }
             if (await this.passwordCheck() == false) {
+                this.isSubmeeting = false;
                 this.$swal({
                     title: 'Erreur',
                     text: 'Le mot de passe est incorrect!',
@@ -217,6 +261,7 @@ export default {
                 return;
             }
             if (await this.createWithDrawalTransaction() == false) {
+                this.isSubmeeting = false;
                 this.$swal({
                     title: 'Erreur',
                     text: 'Vérifiez votre connexion à internet et réessayer!',
@@ -231,7 +276,6 @@ export default {
             }
 
             let message = `Le client ${this.userName} a soumis une demande de retrait de ${this.amount} sur son numero: ${this.tel}`;
-            console.log(message);
             let object =
                 "Le client" +
                 " " +
@@ -239,7 +283,6 @@ export default {
                 " " +
                 "a soumis une demande de retrait ";
             let data = new FormData();
-            console.log(message)
             data.append("user_id", this.userId);
             data.append("fname", this.userName);
             data.append("email", this.userEmail);
@@ -266,6 +309,7 @@ export default {
                             title: 'my-small-tittlepayment',
                         }
                     });
+                    this.isSubmeeting = false;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -304,7 +348,10 @@ export default {
             );
         },
         async createWithDrawalTransaction() {
+            this.routerStore = useRouterStore();
+            let router_id = this.routerStore.router.id;
             let data = new FormData();
+            data.append("router_id", router_id);
             data.append("user_id", this.userId);
             data.append("phone", this.phone);
             data.append("transfertPhone", this.tel);
@@ -316,6 +363,8 @@ export default {
                     url: Globals.webside_url + "index.php?req=create-withdrawal",
                     data: data,
                 })
+                console.log(res);
+                console.log(res.data.success);
                 if (res.data.data == true && res.data.success == true) {
                     return true;
                 } else {
@@ -332,4 +381,8 @@ export default {
     }
 }
 </script>
-<style></style>
+<style>
+.conainer {
+    border: none !important;
+}
+</style>

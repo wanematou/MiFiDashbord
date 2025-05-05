@@ -15,7 +15,7 @@ import TemplateList from '../views/listTemplate.vue'
     {
       path: "/",
       name: "loginPage",
-      component: loginPage
+      component: loginPage,
     },
     {
       path: "/client",
